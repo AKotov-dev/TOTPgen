@@ -1,0 +1,145 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#: tdataform.applybtn.caption
+msgctxt "tdataform.applybtn.caption"
+msgid "Appy"
+msgstr "Применить"
+
+#: tdataform.caption
+msgctxt "tdataform.caption"
+msgid "DataForm"
+msgstr "Код скопирован в буфер"
+
+#: tdataform.combobox1.hint
+msgid "Default: SHA1"
+msgstr "По умолчанию: SHA1"
+
+#: tdataform.combobox1.text
+msgctxt "tdataform.combobox1.text"
+msgid "SHA1"
+msgstr ""
+
+#: tdataform.edit1.hint
+msgid "Name on the list"
+msgstr "Имя в списке"
+
+#: tdataform.edit2.hint
+msgid "Base32 or hex format"
+msgstr "Формат base32 или hex"
+
+#: tdataform.label1.caption
+msgctxt "tdataform.label1.caption"
+msgid "Name"
+msgstr "Имя"
+
+#: tdataform.label2.caption
+msgctxt "tdataform.label2.caption"
+msgid "HASH"
+msgstr ""
+
+#: tdataform.label3.caption
+msgctxt "tdataform.label3.caption"
+msgid "DIGITS"
+msgstr ""
+
+#: tdataform.label4.caption
+msgid "Key"
+msgstr "Ключ"
+
+#: tdataform.spinedit1.hint
+msgid "Default: 6"
+msgstr "По умолчанию: 6"
+
+#: tmainform.addbtn.hint
+msgid "Add entry [Insert]"
+msgstr "Добавить запись [Insert]"
+
+#: tmainform.caption
+msgid "TOTPgui"
+msgstr ""
+
+#: tmainform.deletebtn.hint
+msgid "Delete selected [F8]"
+msgstr "Удалить выбранное [F8]"
+
+#: tmainform.editbtn.hint
+msgid "Edit an entry [F4]"
+msgstr "Редактировать запись [F4]"
+
+#: tmainform.getbtn.caption
+msgid "TOTP"
+msgstr ""
+
+#: tmainform.getbtn.hint
+msgid "Get the code"
+msgstr "Получить код"
+
+#: tmainform.loadbtn.hint
+msgid "Load"
+msgstr "Загрузить"
+
+#: tmainform.savebtn.hint
+msgid "Save"
+msgstr "Сохранить"
+
+#: tmainform.selectall.hint
+msgid "Select all (Ctrl+A)"
+msgstr "Выбрать все"
+
+#: tmainform.sortbtn.hint
+msgid "Sort List"
+msgstr "Сортировать список"
+
+#: tmainform.statictext1.caption
+msgid "License: GPLv3   Author: alex_q_2000 (C) 2024"
+msgstr "Лицензия: GPLv3   Автор: alex_q_2000 (C) 2024"
+
+#: ttotpform.caption
+msgctxt "ttotpform.caption"
+msgid "Code copied to clipboard"
+msgstr "Код скопирован в буфер"
+
+#: ttotpform.label1.caption
+msgctxt "ttotpform.label1.caption"
+msgid "123456"
+msgstr ""
+
+#: unit1.sappendrecord
+msgid "Append entry"
+msgstr "Добавить запись"
+
+#: unit1.sapprunning
+msgid "The program is already running!"
+msgstr "Программа уже запущена!"
+
+#: unit1.sdeleteconfiguration
+msgid "Remove selected from list?"
+msgstr "Удалить выбранное из списка?"
+
+#: unit1.seditrecord
+msgid "Editing entry"
+msgstr "Редактировать запись"
+
+#: unit1.snobackup
+msgid "The archive does not correspond to TOTPgen!"
+msgstr "Архив не соответствует TOTPgen!"
+
+#: unit1.snokeyformat
+msgid "The key format is not defined!"
+msgstr "Формат ключа не определён!"
+
+#: unit1.srecordexists
+msgid "The record already exists!"
+msgstr "Запись уже существует!"

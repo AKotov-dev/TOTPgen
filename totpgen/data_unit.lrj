@@ -1,0 +1,13 @@
+{"version":1,"strings":[
+{"hash":145084973,"name":"tdataform.caption","sourcebytes":[68,97,116,97,70,111,114,109],"value":"DataForm"},
+{"hash":346165,"name":"tdataform.label1.caption","sourcebytes":[78,97,109,101],"value":"Name"},
+{"hash":151551796,"name":"tdataform.edit1.hint","sourcebytes":[78,97,109,101,32,111,110,32,116,104,101,32,108,105,115,116],"value":"Name on the list"},
+{"hash":312952,"name":"tdataform.label2.caption","sourcebytes":[72,65,83,72],"value":"HASH"},
+{"hash":226095153,"name":"tdataform.combobox1.hint","sourcebytes":[68,101,102,97,117,108,116,58,32,83,72,65,49],"value":"Default: SHA1"},
+{"hash":359489,"name":"tdataform.combobox1.text","sourcebytes":[83,72,65,49],"value":"SHA1"},
+{"hash":76398227,"name":"tdataform.label3.caption","sourcebytes":[68,73,71,73,84,83],"value":"DIGITS"},
+{"hash":147314678,"name":"tdataform.spinedit1.hint","sourcebytes":[68,101,102,97,117,108,116,58,32,54],"value":"Default: 6"},
+{"hash":296825,"name":"tdataform.applybtn.caption","sourcebytes":[65,112,112,121],"value":"Appy"},
+{"hash":20937,"name":"tdataform.label4.caption","sourcebytes":[75,101,121],"value":"Key"},
+{"hash":136847316,"name":"tdataform.edit2.hint","sourcebytes":[66,97,115,101,51,50,32,111,114,32,104,101,120,32,102,111,114,109,97,116],"value":"Base32 or hex format"}
+]}

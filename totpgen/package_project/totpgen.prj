@@ -1,0 +1,67 @@
+[NAME]
+name=totpgen
+
+[VERSION]
+version=0.1
+
+[RELEASE]
+release=0.mrx9
+
+[GROUP]
+group=Accessibility
+
+[DESCRIPTION]
+0=Simple TOTP Password Generator
+1=---
+2=More information: /usr/share/doc/package_name/repack.txt
+
+[MAINTAINER]
+maintainer=Alex Kotov
+
+[VENDOR]
+vendor=alex_q_2000 (C) 2024
+
+[SUMMARY]
+summary=Simple TOTP Password Generator
+
+[URLCOPY]
+urlcopy=111
+
+[LICENSE]
+license=GPLv3
+
+[DEPS]
+deps=gtk2 polkit oath-toolkit
+
+[META]
+meta=0
+
+[NOARCH]
+noarch=0
+
+[DEB]
+deb=0
+
+[FILES]
+0=/usr/bin/totpgen
+1=/usr/share/totpgen/
+2=/usr/share/icons/totpgen.png
+3=/usr/share/applications/totpgen.desktop
+4=/usr/share/polkit-1/actions/totpgen.policy
+
+[URL32]
+url32=111
+
+[PROGRAMNAME]
+programname=TOTPgen
+
+[DEVTOOL]
+devtool=Lazarus
+
+[TOOLVERSION]
+toolversion=3.2-0
+
+[INFO]
+0=v0.1
+1=+ Initial release
+2=+ RPM packages for Mageia-9

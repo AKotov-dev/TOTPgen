@@ -1,0 +1,9 @@
+{"version":1,"strings":[
+{"hash":7788545,"name":"unit1.sapprunning","sourcebytes":[84,104,101,32,112,114,111,103,114,97,109,32,105,115,32,97,108,114,101,97,100,121,32,114,117,110,110,105,110,103,33],"value":"The program is already running!"},
+{"hash":34712447,"name":"unit1.sdeleteconfiguration","sourcebytes":[82,101,109,111,118,101,32,115,101,108,101,99,116,101,100,32,102,114,111,109,32,108,105,115,116,63],"value":"Remove selected from list?"},
+{"hash":49100761,"name":"unit1.sappendrecord","sourcebytes":[65,112,112,101,110,100,32,101,110,116,114,121],"value":"Append entry"},
+{"hash":48032665,"name":"unit1.seditrecord","sourcebytes":[69,100,105,116,105,110,103,32,101,110,116,114,121],"value":"Editing entry"},
+{"hash":213318209,"name":"unit1.srecordexists","sourcebytes":[84,104,101,32,114,101,99,111,114,100,32,97,108,114,101,97,100,121,32,101,120,105,115,116,115,33],"value":"The record already exists!"},
+{"hash":103324721,"name":"unit1.snokeyformat","sourcebytes":[84,104,101,32,107,101,121,32,102,111,114,109,97,116,32,105,115,32,110,111,116,32,100,101,102,105,110,101,100,33],"value":"The key format is not defined!"},
+{"hash":101247073,"name":"unit1.snobackup","sourcebytes":[84,104,101,32,97,114,99,104,105,118,101,32,100,111,101,115,32,110,111,116,32,99,111,114,114,101,115,112,111,110,100,32,116,111,32,84,79,84,80,103,101,110,33],"value":"The archive does not correspond to TOTPgen!"}
+]}

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [[ $(type -p kdesu) && $XDG_CURRENT_DESKTOP == KDE ]]; then
+    kdesu /usr/share/totpgen/totpgen
+	else
+    pkexec /usr/share/totpgen/totpgen
+fi
+
+exit;

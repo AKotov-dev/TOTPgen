@@ -1,0 +1,135 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: tdataform.applybtn.caption
+msgctxt "tdataform.applybtn.caption"
+msgid "Appy"
+msgstr ""
+
+#: tdataform.caption
+msgctxt "tdataform.caption"
+msgid "DataForm"
+msgstr ""
+
+#: tdataform.combobox1.hint
+msgid "Default: SHA1"
+msgstr ""
+
+#: tdataform.combobox1.text
+msgctxt "tdataform.combobox1.text"
+msgid "SHA1"
+msgstr ""
+
+#: tdataform.edit1.hint
+msgid "Name on the list"
+msgstr ""
+
+#: tdataform.edit2.hint
+msgid "Base32 or hex format"
+msgstr ""
+
+#: tdataform.label1.caption
+msgctxt "tdataform.label1.caption"
+msgid "Name"
+msgstr ""
+
+#: tdataform.label2.caption
+msgctxt "tdataform.label2.caption"
+msgid "HASH"
+msgstr ""
+
+#: tdataform.label3.caption
+msgctxt "tdataform.label3.caption"
+msgid "DIGITS"
+msgstr ""
+
+#: tdataform.label4.caption
+msgid "Key"
+msgstr ""
+
+#: tdataform.spinedit1.hint
+msgid "Default: 6"
+msgstr ""
+
+#: tmainform.addbtn.hint
+msgid "Add entry [Insert]"
+msgstr ""
+
+#: tmainform.caption
+msgid "TOTPgui"
+msgstr ""
+
+#: tmainform.deletebtn.hint
+msgid "Delete selected [F8]"
+msgstr ""
+
+#: tmainform.editbtn.hint
+msgid "Edit an entry [F4]"
+msgstr ""
+
+#: tmainform.getbtn.caption
+msgid "TOTP"
+msgstr ""
+
+#: tmainform.getbtn.hint
+msgid "Get the code"
+msgstr ""
+
+#: tmainform.loadbtn.hint
+msgid "Load"
+msgstr ""
+
+#: tmainform.savebtn.hint
+msgid "Save"
+msgstr ""
+
+#: tmainform.selectall.hint
+msgid "Select all (Ctrl+A)"
+msgstr ""
+
+#: tmainform.sortbtn.hint
+msgid "Sort List"
+msgstr ""
+
+#: tmainform.statictext1.caption
+msgid "License: GPLv3   Author: alex_q_2000 (C) 2024"
+msgstr ""
+
+#: ttotpform.caption
+msgctxt "ttotpform.caption"
+msgid "Code copied to clipboard"
+msgstr ""
+
+#: ttotpform.label1.caption
+msgctxt "ttotpform.label1.caption"
+msgid "123456"
+msgstr ""
+
+#: unit1.sappendrecord
+msgid "Append entry"
+msgstr ""
+
+#: unit1.sapprunning
+msgid "The program is already running!"
+msgstr ""
+
+#: unit1.sdeleteconfiguration
+msgid "Remove selected from list?"
+msgstr ""
+
+#: unit1.seditrecord
+msgid "Editing entry"
+msgstr ""
+
+#: unit1.snobackup
+msgid "The archive does not correspond to TOTPgen!"
+msgstr ""
+
+#: unit1.snokeyformat
+msgid "The key format is not defined!"
+msgstr ""
+
+#: unit1.srecordexists
+msgid "The record already exists!"
+msgstr ""
+
