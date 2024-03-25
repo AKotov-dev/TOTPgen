@@ -25,7 +25,7 @@ vendor=alex_q_2000 (C) 2024
 summary=Simple TOTP Password Generator
 
 [URLCOPY]
-urlcopy=111
+urlcopy=https://github.com/AKotov-dev/TOTPgen
 
 [LICENSE]
 license=GPLv3
@@ -45,12 +45,13 @@ deb=0
 [FILES]
 0=/usr/bin/totpgen
 1=/usr/share/totpgen/
-2=/usr/share/icons/totpgen.png
-3=/usr/share/applications/totpgen.desktop
-4=/usr/share/polkit-1/actions/totpgen.policy
+2=/usr/share/doc/totpgen/
+3=/usr/share/icons/totpgen.png
+4=/usr/share/applications/totpgen.desktop
+5=/usr/share/polkit-1/actions/totpgen.policy
 
 [URL32]
-url32=111
+url32=https://github.com/AKotov-dev/TOTPgen
 
 [PROGRAMNAME]
 programname=TOTPgen
