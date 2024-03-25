@@ -11,7 +11,7 @@ After launch, create an entry by clicking the `+` button. Enter the Record `Name
 
 ![](https://github.com/AKotov-dev/TOTPgen/blob/main/Screenshot1.png)
 
-TOTPgen understands 2 secret key formats: `base32` and `hex`. The default is HASH=SHA1, GIDITS=6 (RFC 6238), the new password generation step is 30 seconds. The correctness of the key can be checked, for example, in the terminal:
+TOTPgen understands 2 secret key formats: `base32` and `hex`. The default is HASH=SHA1, DIGITS=6 (RFC 6238), the new password generation step is 30 seconds. The correctness of the key can be checked, for example, in the terminal:
 ```
 oathtool --totp 'your_hex_secret_key'
 oathtool -b --totp 'your_base32_secret_key'
