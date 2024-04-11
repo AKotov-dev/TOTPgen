@@ -1,7 +1,7 @@
 object TOTPForm: TTOTPForm
-  Left = 620
+  Left = 757
   Height = 142
-  Top = 158
+  Top = 132
   Width = 335
   Caption = 'Code copied to clipboard'
   ClientHeight = 142

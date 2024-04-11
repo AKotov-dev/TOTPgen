@@ -56,7 +56,7 @@ msgid "Add entry [Insert]"
 msgstr ""
 
 #: tmainform.caption
-msgid "TOTPgui"
+msgid "TOTPgen"
 msgstr ""
 
 #: tmainform.deletebtn.hint
@@ -77,6 +77,10 @@ msgstr ""
 
 #: tmainform.loadbtn.hint
 msgid "Load"
+msgstr ""
+
+#: tmainform.qrbtn.hint
+msgid "Get QR from screen"
 msgstr ""
 
 #: tmainform.savebtn.hint

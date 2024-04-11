@@ -2,7 +2,7 @@
 name=totpgen
 
 [VERSION]
-version=0.1
+version=0.2
 
 [RELEASE]
 release=0.mrx9
@@ -31,7 +31,7 @@ urlcopy=https://github.com/AKotov-dev/TOTPgen
 license=GPLv3
 
 [DEPS]
-deps=gtk2 polkit oath-toolkit
+deps=gtk2 polkit oath-toolkit zbar
 
 [META]
 meta=0
@@ -63,6 +63,11 @@ devtool=Lazarus
 toolversion=3.2-0
 
 [INFO]
-0=v0.1
-1=+ Initial release
-2=+ RPM packages for Mageia-9
+0=v0.2
+1=+ Added dependency zbar (spec)
+2=+ Getting the secret key and parameters from the QR from the screen
+3=+ RPM packages for Mageia-9
+4=
+5=v0.1
+6=+ Initial release
+7=+ RPM packages for Mageia-9

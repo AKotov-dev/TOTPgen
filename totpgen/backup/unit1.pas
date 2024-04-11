@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Buttons, StdCtrls,
   IniPropStorage, DefaultTranslator, LCLTranslator, LCLType, ClipBrd,
-  AsyncProcess, Types, FileUtil, Process, IniFiles, LCLIntf;
+  AsyncProcess, Types, FileUtil, Process, IniFiles;
 
 type
 
