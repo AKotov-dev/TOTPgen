@@ -11,7 +11,7 @@ After launch, create an entry by clicking the `+` button. Enter the Record `Name
   
 Starting with `v0.2`, TOTPgen can take TOTP parameters from a QR code on the screen (button with an `eye`). In this case, a record is created automatically. The main thing is that the QR code is fully visible on the screen.  
 
-![](https://github.com/AKotov-dev/TOTPgen/blob/main/Screenshot1.png)
+![](https://github.com/AKotov-dev/TOTPgen/blob/main/Screenshot2.png)
 
 TOTPgen understands 2 secret key formats: `base32` and `hex`. The default is HASH=SHA1, DIGITS=6 (RFC 6238), the new password generation step is 30 seconds. The correctness of the key can be checked, for example, in the terminal:
 ```
