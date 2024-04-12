@@ -279,7 +279,6 @@ begin
   try
     S := TStringList.Create;
     S.LoadFromStream(GetQR.Output);
-    S[0] := Trim(S[0]);
 
     //Если код 'otpauth://totp' существует
     if (S.Count <> 0) and (Pos('otpauth://totp', S[0]) <> 0) then
@@ -293,6 +292,8 @@ begin
         Edit2.Clear;
         ComboBox1.Text := 'SHA1';
         SpinEdit1.Value := 6;
+
+        S[0] := Trim(S[0]);
 
         //Дешифрация основных параметров из QR-кода
         if (QRDecode(S[0], 'secret') <> 'none') then

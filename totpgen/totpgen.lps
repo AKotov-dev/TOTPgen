@@ -50,8 +50,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="413"/>
-        <CursorPos X="95" Y="416"/>
+        <TopLine Value="274"/>
+        <CursorPos X="28" Y="296"/>
         <UsageCount Value="34"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -206,7 +206,7 @@
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Column="13" TopLine="91"/>
+        <Caret Line="416" Column="131" TopLine="413"/>
       </Position>
     </JumpHistory>
     <RunParams>

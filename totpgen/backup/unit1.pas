@@ -413,7 +413,7 @@ begin
   end;
 end;
 
-//Снять скриншот и расшифровать QR (если найден)
+//Снять скриншот и расшифровать QR (если найден); Test: https://stefansundin.github.io/2fa-qr/
 procedure TMainForm.QRBtnClick(Sender: TObject);
 var
   ScreenDC: HDC;
