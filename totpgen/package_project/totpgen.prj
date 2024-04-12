@@ -65,7 +65,7 @@ toolversion=3.2-0
 [INFO]
 0=v0.2
 1=+ Added dependency zbar (spec)
-2=+ Getting the secret key and parameters from the QR from the screen
+2=+ Scan TOTP QR code from the screen
 3=+ RPM packages for Mageia-9
 4=
 5=v0.1

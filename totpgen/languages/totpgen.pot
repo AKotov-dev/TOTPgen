@@ -80,7 +80,7 @@ msgid "Load"
 msgstr ""
 
 #: tmainform.qrbtn.hint
-msgid "Get QR from screen"
+msgid "Scan QR from screen"
 msgstr ""
 
 #: tmainform.savebtn.hint

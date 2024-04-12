@@ -10,5 +10,5 @@
 {"hash":178979333,"name":"tmainform.getbtn.hint","sourcebytes":[71,101,116,32,116,104,101,32,99,111,100,101],"value":"Get the code"},
 {"hash":365712,"name":"tmainform.getbtn.caption","sourcebytes":[84,79,84,80],"value":"TOTP"},
 {"hash":1020276,"name":"tmainform.statictext1.caption","sourcebytes":[76,105,99,101,110,115,101,58,32,71,80,76,118,51,32,32,32,65,117,116,104,111,114,58,32,97,108,101,120,95,113,95,50,48,48,48,32,40,67,41,32,50,48,50,52],"value":"License: GPLv3   Author: alex_q_2000 (C) 2024"},
-{"hash":120290094,"name":"tmainform.qrbtn.hint","sourcebytes":[71,101,116,32,81,82,32,102,114,111,109,32,115,99,114,101,101,110],"value":"Get QR from screen"}
+{"hash":175053694,"name":"tmainform.qrbtn.hint","sourcebytes":[83,99,97,110,32,81,82,32,102,114,111,109,32,115,99,114,101,101,110],"value":"Scan QR from screen"}
 ]}
