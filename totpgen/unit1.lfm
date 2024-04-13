@@ -1,7 +1,7 @@
 object MainForm: TMainForm
-  Left = 294
+  Left = 289
   Height = 633
-  Top = 128
+  Top = 127
   Width = 441
   ActiveControl = GETBtn
   Caption = 'TOTPgen'

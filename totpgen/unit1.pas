@@ -79,6 +79,48 @@ uses totp_unit, data_unit;
 
   { TMainForm }
 
+//Issuer Decode (URI format)
+function DecodeUrl(const url: string): string;
+var
+  x: integer;
+  ch: string;
+  sVal: string;
+  Buff: string;
+begin
+  //Init
+  Buff := '';
+  x := 1;
+  while x <= Length(url) do
+  begin
+    //Get single char
+    ch := url[x];
+
+    if ch = '+' then
+    begin
+      //Append space
+      Buff := Buff + ' ';
+    end
+    else if ch <> '%' then
+    begin
+      //Append other chars
+      Buff := Buff + ch;
+    end
+    else
+    begin
+      //Get value
+      sVal := Copy(url, x + 1, 2);
+      //Convert sval to int then to char
+      Buff := Buff + char(StrToInt('$' + sVal));
+      //Inc counter by 2
+      Inc(x, 2);
+    end;
+    //Inc counter
+    Inc(x);
+  end;
+  //Return result
+  Result := Buff;
+end;
+
 //Парсер URL otpauth://totp/%...
 function TMainForm.QRDecode(URL, val: string): string;
 var
@@ -296,6 +338,11 @@ begin
         S[0] := Trim(S[0]);
 
         //Дешифрация основных параметров из QR-кода
+        //https://github.com/google/google-authenticator/wiki/Key-Uri-Format (Issuer - для новых версий)
+        //https://docs.yubico.com/yesdk/users-manual/application-oath/uri-string-format.html
+        if (QRDecode(S[0], 'issuer') <> 'none') then
+          Edit1.Text := DecodeURL(QRDecode(S[0], 'issuer'));
+
         if (QRDecode(S[0], 'secret') <> 'none') then
           Edit2.Text := QRDecode(S[0], 'secret');
 
