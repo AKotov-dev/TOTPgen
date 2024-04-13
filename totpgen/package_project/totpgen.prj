@@ -2,7 +2,7 @@
 name=totpgen
 
 [VERSION]
-version=0.2
+version=0.3
 
 [RELEASE]
 release=0.mrx9
@@ -65,7 +65,7 @@ toolversion=3.2-0
 [INFO]
 0=v0.3
 1=+ Cosmetic edits
-2=+ Reading `Issuer` as a name in a list
+2=+ Reading Issuer as a name in a list
 3=+ RPM packages for Mageia-9
 4=
 5=v0.2
