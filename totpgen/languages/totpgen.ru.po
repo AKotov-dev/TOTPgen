@@ -14,7 +14,7 @@ msgstr ""
 
 #: tdataform.applybtn.caption
 msgctxt "tdataform.applybtn.caption"
-msgid "Appy"
+msgid "Apply"
 msgstr "Применить"
 
 #: tdataform.caption

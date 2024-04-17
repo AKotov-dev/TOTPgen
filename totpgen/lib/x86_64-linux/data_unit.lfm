@@ -104,7 +104,7 @@ object DataForm: TDataForm
     Width = 143
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Right = 8
-    Caption = 'Appy'
+    Caption = 'Apply'
     Glyph.Data = {
       36100000424D3610000000000000360000002800000020000000200000000100
       2000000000000010000064000000640000000000000000000000000000000000

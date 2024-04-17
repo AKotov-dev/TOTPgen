@@ -3,7 +3,7 @@ msgstr "Content-Type: text/plain; charset=UTF-8"
 
 #: tdataform.applybtn.caption
 msgctxt "tdataform.applybtn.caption"
-msgid "Appy"
+msgid "Apply"
 msgstr ""
 
 #: tdataform.caption
