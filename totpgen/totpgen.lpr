@@ -53,7 +53,7 @@ begin
 
   //---
   RequireDerivedFormResource := True;
-  Application.Title:='TOTPgen v0.3';
+  Application.Title:='TOTPgen v0.4';
   Application.Scaled:=True;
   Application.Initialize;
   Application.CreateForm(TMainForm, MainForm);

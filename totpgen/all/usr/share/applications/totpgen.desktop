@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=TOTPgen
-Comment=TOTP Password Generator
-Comment[ru]=Генератор паролей TOTP
+Comment=TOTP/HOTP Password Generator
+Comment[ru]=Генератор паролей TOTP/HOTP
 Icon=totpgen
 Exec=totpgen
 Type=Application

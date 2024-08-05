@@ -36,8 +36,14 @@ msgid "Name on the list"
 msgstr "Имя в списке"
 
 #: tdataform.edit2.hint
+msgctxt "tdataform.edit2.hint"
 msgid "Base32 or hex format"
 msgstr "Формат base32 или hex"
+
+#: tdataform.hotp.caption
+msgctxt "tdataform.hotp.caption"
+msgid "HOTP"
+msgstr ""
 
 #: tdataform.label1.caption
 msgctxt "tdataform.label1.caption"
@@ -57,6 +63,11 @@ msgstr ""
 #: tdataform.label4.caption
 msgid "Key"
 msgstr "Ключ"
+
+#: tdataform.label5.caption
+msgctxt "tdataform.label5.caption"
+msgid "Counter"
+msgstr "Счетчик"
 
 #: tdataform.spinedit1.hint
 msgid "Default: 6"
@@ -83,8 +94,8 @@ msgid "TOTP"
 msgstr ""
 
 #: tmainform.getbtn.hint
-msgid "Get the code"
-msgstr "Получить код"
+msgid "Get the code (TOTP/HOTP)"
+msgstr "Получить код (TOTP/HOTP)"
 
 #: tmainform.loadbtn.hint
 msgid "Load"

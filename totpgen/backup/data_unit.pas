@@ -14,6 +14,7 @@ type
 
   TDataForm = class(TForm)
     ApplyBtn: TBitBtn;
+    HOTP: TCheckBox;
     ComboBox1: TComboBox;
     Edit1: TEdit;
     Edit2: TEdit;
@@ -21,12 +22,16 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    Label5: TLabel;
     SpinEdit1: TSpinEdit;
+    HOTPCounter: TSpinEdit;
     TOTPini: TIniPropStorage;
     procedure ApplyBtnClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormKeyPress(Sender: TObject; var Key: char);
     procedure FormShow(Sender: TObject);
+    procedure HOTPChange(Sender: TObject);
   private
 
   public
@@ -60,9 +65,12 @@ begin
   end;
 end;
 
-//Применить
+//Применить (Apply)
 procedure TDataForm.ApplyBtnClick(Sender: TObject);
 begin
+  //Убираем возможные пробелы в значении секретного ключа (например из Яндекс)
+  Edit2.Text := StringReplace(Edit2.Text, ' ', '', [rfReplaceAll, rfIgnoreCase]);
+
   //Если Имя или Ключ не введены = Выход
   if (Edit1.Text = '') or (Edit2.Text = '') then Exit;
 
@@ -86,6 +94,7 @@ begin
     //  ShowMessage('ADD');
     TOTPini.IniFileName := WorkDir + Edit1.Text;
     TOTPini.Save;
+
     MainForm.ListBox1.Items.Append(Trim(Edit1.Text));
     MainForm.ListBox1.Items.SaveToFile(WorkDir + 'totp.list');
     MainForm.ListBox1.ItemIndex := MainForm.ListBox1.Count - 1;
@@ -98,6 +107,12 @@ begin
   TOTPini.IniFileName := '';
 
   DataForm.Close;
+end;
+
+procedure TDataForm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  HOTP.Checked := False;
+  HOTPCounter.Value := 0;
 end;
 
 //Нужно от дубликатов записей
@@ -117,6 +132,13 @@ begin
   Top := MainForm.Top + 100;
   Left := MainForm.Left + 100;
   Edit1.SetFocus;
+end;
+
+procedure TDataForm.HOTPChange(Sender: TObject);
+begin
+  if HOTP.Checked then HOTPCounter.Enabled := True
+  else
+    HOTPCounter.Enabled := False;
 end;
 
 end.

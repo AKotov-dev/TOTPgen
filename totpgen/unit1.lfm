@@ -645,7 +645,7 @@ object MainForm: TMainForm
     AnchorSideBottom.Side = asrBottom
     Left = 355
     Height = 40
-    Hint = 'Get the code'
+    Hint = 'Get the code (TOTP/HOTP)'
     Top = 7
     Width = 78
     Anchors = [akTop, akRight, akBottom]

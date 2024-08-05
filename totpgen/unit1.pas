@@ -283,7 +283,7 @@ procedure TMainForm.GETBtnClick(Sender: TObject);
 var
   INI: TIniFile;
   Key, HASH: string;
-  DIGITS: integer;
+  DIGITS, COUNTER, HOTP: integer;
 begin
   if ListBox1.SelCount = 0 then Exit;
 
@@ -292,19 +292,36 @@ begin
     Key := INI.ReadString('TApplication.DataForm', 'Edit2_Text', '');
     HASH := INI.ReadString('TApplication.DataForm', 'Combobox1_Text', 'SHA1');
     DIGITS := INI.ReadInteger('TApplication.DataForm', 'SpinEdit1_Value', 6);
+    COUNTER := INI.ReadInteger('TApplication.DataForm', 'HOTPCounter_Value', 0);
+    HOTP := INI.ReadInteger('TApplication.DataForm', 'HOTP_Checked', 0);
 
     GetTOTP.Parameters.Clear;
     GetTOTP.Parameters.Add('-c');
 
-    //Валидация символов TOTP: HEX или BASE32
-    if IsHexFormat(KEY) then
-      GetTOTP.Parameters.Add('oathtool --totp=' + HASH + ' --digits=' +
-        IntToStr(DIGITS) + ' ' + '''' + KEY + '''')
-    else if IsBase32Format(KEY) then
-      GetTOTP.Parameters.Add('oathtool -b --totp=' + HASH + ' --digits=' +
-        IntToStr(DIGITS) + ' ' + '''' + KEY + '''')
+    if HOTP = 0 then
+    begin
+
+      //Валидация символов TOTP: HEX или BASE32
+      if IsHexFormat(KEY) then
+        GetTOTP.Parameters.Add('oathtool --totp=' + HASH + ' --digits=' +
+          IntToStr(DIGITS) + ' ' + '''' + KEY + '''')
+      else if IsBase32Format(KEY) then
+        GetTOTP.Parameters.Add('oathtool -b --totp=' + HASH +
+          ' --digits=' + IntToStr(DIGITS) + ' ' + '''' + KEY + '''')
+      else
+        MessageDlg(SNoKeyFormat, mtWarning, [mbOK], 0);
+    end
     else
-      MessageDlg(SNoKeyFormat, mtWarning, [mbOK], 0);
+    begin   //HOTP
+      if IsHexFormat(KEY) then
+        GetTOTP.Parameters.Add('oathtool --hotp --digits=' +
+          IntToStr(DIGITS) + ' ' + '''' + KEY + '''' + ' --counter=' + IntToStr(COUNTER))
+      else if IsBase32Format(KEY) then
+        GetTOTP.Parameters.Add('oathtool -b --hotp --digits=' +
+          IntToStr(DIGITS) + ' ' + '''' + KEY + '''' + ' --counter=' + IntToStr(COUNTER))
+      else
+        MessageDlg(SNoKeyFormat, mtWarning, [mbOK], 0);
+    end;
 
     GetTOTP.Execute;
 
@@ -323,7 +340,8 @@ begin
     S.LoadFromStream(GetQR.Output);
 
     //Если код 'otpauth://totp' существует
-    if (S.Count <> 0) and (Pos('otpauth://totp', S[0]) <> 0) then
+    if (S.Count <> 0) and ((Pos('otpauth://totp', S[0]) <> 0) or
+      (Pos('otpauth://hotp', S[0]) <> 0)) then
       //Default add
       with DataForm do
       begin
@@ -334,6 +352,8 @@ begin
         Edit2.Clear;
         ComboBox1.Text := 'SHA1';
         SpinEdit1.Value := 6;
+        HOTP.Checked := False;
+        HOTPCounter.Value := 0;
 
         S[0] := Trim(S[0]);
 
@@ -351,6 +371,12 @@ begin
 
         if QRDecode(S[0], 'digits') <> 'none' then
           SpinEdit1.Value := StrToInt(QRDecode(S[0], 'digits'));
+
+        if QRDecode(S[0], 'counter') <> 'none' then
+        begin
+          HOTP.Checked := True;
+          HOTPCounter.Value := StrToInt(QRDecode(S[0], 'counter'));
+        end;
 
         ShowModal;
       end;
@@ -561,6 +587,8 @@ begin
     Edit2.Clear;
     ComboBox1.Text := 'SHA1';
     SpinEdit1.Value := 6;
+    HOTP.Checked := False;
+    HOTPCounter.Value := 0;
 
     ShowModal;
   end;

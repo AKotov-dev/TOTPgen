@@ -2,7 +2,7 @@
 name=totpgen
 
 [VERSION]
-version=0.3
+version=0.4
 
 [RELEASE]
 release=0.mrx9
@@ -11,7 +11,7 @@ release=0.mrx9
 group=Accessibility
 
 [DESCRIPTION]
-0=Simple TOTP Password Generator
+0=Simple TOTP/HOTP Password Generator
 1=---
 2=More information: /usr/share/doc/package_name/repack.txt
 
@@ -22,7 +22,7 @@ maintainer=Alex Kotov
 vendor=alex_q_2000 (C) 2024
 
 [SUMMARY]
-summary=Simple TOTP Password Generator
+summary=Simple TOTP/HOTP Password Generator
 
 [URLCOPY]
 urlcopy=https://github.com/AKotov-dev/TOTPgen
@@ -63,16 +63,20 @@ devtool=Lazarus
 toolversion=3.2-0
 
 [INFO]
-0=v0.3
-1=+ Cosmetic edits
-2=+ Reading Issuer as a name in a list
-3=+ RPM packages for Mageia-9
-4=
-5=v0.2
-6=+ Added dependency zbar (spec)
-7=+ Scan TOTP QR code from the screen
-8=+ RPM packages for Mageia-9
-9=
-10=v0.1
-11=+ Initial release
+0=v0.4
+1=+ Added work with HOTP
+2=+ RPM packages for Mageia-9
+3=
+4=v0.3
+5=+ Cosmetic edits
+6=+ Reading Issuer as a name in a list
+7=+ RPM packages for Mageia-9
+8=
+9=v0.2
+10=+ Added dependency zbar (spec)
+11=+ Scan TOTP QR code from the screen
 12=+ RPM packages for Mageia-9
+13=
+14=v0.1
+15=+ Initial release
+16=+ RPM packages for Mageia-9

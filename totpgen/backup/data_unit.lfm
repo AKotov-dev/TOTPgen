@@ -1,18 +1,19 @@
 object DataForm: TDataForm
-  Left = 741
-  Height = 215
-  Top = 128
+  Left = 535
+  Height = 263
+  Top = 168
   Width = 391
   ActiveControl = Edit1
   Caption = 'DataForm'
-  ClientHeight = 215
+  ClientHeight = 263
   ClientWidth = 391
   KeyPreview = True
+  OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   Position = poDefault
-  SessionProperties = 'ComboBox1.Text;SpinEdit1.Value;Edit2.Text'
+  SessionProperties = 'ComboBox1.Text;Edit2.Text;Edit3.Text;HOTPCounter.Value;SpinEdit1.Value;HOTP.Checked'
   LCLVersion = '3.2.0.0'
   object Label1: TLabel
     AnchorSideTop.Control = Edit1
@@ -100,11 +101,11 @@ object DataForm: TDataForm
     AnchorSideRight.Side = asrBottom
     Left = 240
     Height = 54
-    Top = 152
+    Top = 200
     Width = 143
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Right = 8
-    Caption = 'Appy'
+    Caption = 'Apply'
     Glyph.Data = {
       36100000424D3610000000000000360000002800000020000000200000000100
       2000000000000010000064000000640000000000000000000000000000000000
@@ -238,7 +239,7 @@ object DataForm: TDataForm
       0000000000000000000000000000000000000000000000000000
     }
     OnClick = ApplyBtnClick
-    TabOrder = 4
+    TabOrder = 6
   end
   object Label4: TLabel
     AnchorSideTop.Control = Edit2
@@ -264,9 +265,47 @@ object DataForm: TDataForm
     ShowHint = True
     TabOrder = 1
   end
+  object Label5: TLabel
+    AnchorSideTop.Control = HOTP
+    AnchorSideTop.Side = asrCenter
+    AnchorSideRight.Control = HOTPCounter
+    Left = 119
+    Height = 17
+    Top = 160
+    Width = 49
+    Anchors = [akTop, akRight]
+    BorderSpacing.Right = 6
+    Caption = 'Counter'
+  end
+  object HOTPCounter: TSpinEdit
+    AnchorSideLeft.Control = ComboBox1
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = HOTP
+    AnchorSideTop.Side = asrCenter
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 174
+    Height = 37
+    Top = 150
+    Width = 209
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Right = 8
+    Enabled = False
+    Increment = 10
+    TabOrder = 5
+  end
+  object HOTP: TCheckBox
+    Left = 8
+    Height = 32
+    Top = 152
+    Width = 70
+    Caption = 'HOTP'
+    TabOrder = 4
+    OnChange = HOTPChange
+  end
   object TOTPini: TIniPropStorage
     StoredValues = <>
-    Left = 40
-    Top = 152
+    Left = 24
+    Top = 208
   end
 end

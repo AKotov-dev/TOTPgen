@@ -25,7 +25,13 @@ msgid "Name on the list"
 msgstr ""
 
 #: tdataform.edit2.hint
+msgctxt "tdataform.edit2.hint"
 msgid "Base32 or hex format"
+msgstr ""
+
+#: tdataform.hotp.caption
+msgctxt "tdataform.hotp.caption"
+msgid "HOTP"
 msgstr ""
 
 #: tdataform.label1.caption
@@ -45,6 +51,11 @@ msgstr ""
 
 #: tdataform.label4.caption
 msgid "Key"
+msgstr ""
+
+#: tdataform.label5.caption
+msgctxt "tdataform.label5.caption"
+msgid "Counter"
 msgstr ""
 
 #: tdataform.spinedit1.hint
@@ -72,7 +83,7 @@ msgid "TOTP"
 msgstr ""
 
 #: tmainform.getbtn.hint
-msgid "Get the code"
+msgid "Get the code (TOTP/HOTP)"
 msgstr ""
 
 #: tmainform.loadbtn.hint

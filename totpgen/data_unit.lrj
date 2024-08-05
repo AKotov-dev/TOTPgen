@@ -9,5 +9,7 @@
 {"hash":147314678,"name":"tdataform.spinedit1.hint","sourcebytes":[68,101,102,97,117,108,116,58,32,54],"value":"Default: 6"},
 {"hash":4749113,"name":"tdataform.applybtn.caption","sourcebytes":[65,112,112,108,121],"value":"Apply"},
 {"hash":20937,"name":"tdataform.label4.caption","sourcebytes":[75,101,121],"value":"Key"},
-{"hash":136847316,"name":"tdataform.edit2.hint","sourcebytes":[66,97,115,101,51,50,32,111,114,32,104,101,120,32,102,111,114,109,97,116],"value":"Base32 or hex format"}
+{"hash":136847316,"name":"tdataform.edit2.hint","sourcebytes":[66,97,115,101,51,50,32,111,114,32,104,101,120,32,102,111,114,109,97,116],"value":"Base32 or hex format"},
+{"hash":174873218,"name":"tdataform.label5.caption","sourcebytes":[67,111,117,110,116,101,114],"value":"Counter"},
+{"hash":316560,"name":"tdataform.hotp.caption","sourcebytes":[72,79,84,80],"value":"HOTP"}
 ]}
