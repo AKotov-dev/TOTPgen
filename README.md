@@ -18,6 +18,6 @@ TOTPgen understands 2 secret key formats: `base32` and `hex`. The default is HAS
 oathtool --totp 'your_hex_secret_key'
 oathtool -b --totp 'your_base32_secret_key'
 ```
-If a TOTP password is not created, enter the correct secret key. If the site does not accept a password, check the time on your computer.
+If a `TOTP/HOTP` password is not created, enter the correct secret key. If the site does not accept a password, check the time on your computer.
 
 
