@@ -204,6 +204,7 @@ function IsBase32Format(input: string): boolean;
 var
   i: integer;
 begin
+  input := UpperCase(input);
   Result := True;
   for i := 1 to Length(input) do
   begin

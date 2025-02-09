@@ -12,7 +12,7 @@ object MainForm: TMainForm
   OnKeyUp = FormKeyUp
   OnShow = FormShow
   SessionProperties = 'Height;Left;Top;Width;OpenDialog1.InitialDir;SaveDialog1.InitialDir'
-  LCLVersion = '3.2.0.0'
+  LCLVersion = '3.8.0.0'
   object LoadBtn: TSpeedButton
     Left = 8
     Height = 40

@@ -352,6 +352,7 @@ begin
         Edit2.Clear;
         ComboBox1.Text := 'SHA1';
         SpinEdit1.Value := 6;
+        HOTP.Checked := False;
         HOTPCounter.Value := 0;
 
         S[0] := Trim(S[0]);
@@ -372,7 +373,10 @@ begin
           SpinEdit1.Value := StrToInt(QRDecode(S[0], 'digits'));
 
         if QRDecode(S[0], 'counter') <> 'none' then
+        begin
+          HOTP.Checked := True;
           HOTPCounter.Value := StrToInt(QRDecode(S[0], 'counter'));
+        end;
 
         ShowModal;
       end;
