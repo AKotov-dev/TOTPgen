@@ -596,11 +596,12 @@ begin
     QRBtn.Enabled := False;
 
     //Скрываем уже показанный QR-код, поскольку будем искать новый на том же экране
-    ClipBoard.Assign(Image1.Picture);
+    if Image1.Picture <> nil then
+      ClipBoard.Assign(Image1.Picture);
     ImageList2.GetBitMap(0, Image1.Picture.Bitmap);
 
     Application.ProcessMessages;
-    sleep(300);
+    Sleep(300);
     Application.ProcessMessages;
 
     MyBitmap := TBitmap.Create;
@@ -613,13 +614,15 @@ begin
     GetQR.Parameters.Add('zbarimg ' + WorkDir + 'screen.png > ' +
       WorkDir + 'code.txt; cat ' + WorkDir +
       'code.txt | grep QR-Code | cut -c 9-; rm -f ' + WorkDir + '{screen.png,code.txt}');
+
     GetQR.Execute;
+
+    Image1.Picture.Assign(Clipboard);
 
   finally
     MyBitmap.Free;
-        QRBtn.Enabled := True;
-    Image1.Picture.Assign(Clipboard);
     ClipBoard.Clear;
+    QRBtn.Enabled := True;
   end;
 end;
 
