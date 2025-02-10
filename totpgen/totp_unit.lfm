@@ -1,7 +1,7 @@
 object TOTPForm: TTOTPForm
-  Left = 444
+  Left = 390
   Height = 142
-  Top = 228
+  Top = 182
   Width = 335
   Caption = 'Code copied to clipboard'
   ClientHeight = 142
@@ -10,14 +10,13 @@ object TOTPForm: TTOTPForm
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   Position = poDefault
-  LCLVersion = '3.2.0.0'
+  LCLVersion = '3.8.0.0'
   object Label1: TLabel
     Left = 128
     Height = 57
     Top = 1
     Width = 198
     Caption = '123456'
-    Font.Color = clMaroon
     Font.Height = -48
     Font.Name = 'Sans'
     Font.Style = [fsBold]

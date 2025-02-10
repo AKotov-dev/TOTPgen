@@ -39,7 +39,7 @@ uses unit1;
 procedure TTOTPForm.FormShow(Sender: TObject);
 begin
   Top := MainForm.Top + 100;
-  Left := MainForm.Left + 100;
+  Left := MainForm.Left + 120;
 
   Width := Label1.Left + Label1.Width + 8;
   Height := OkBtn.Top + OkBtn.Height + 8;
