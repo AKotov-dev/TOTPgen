@@ -593,7 +593,6 @@ begin
   try
     //Скрываем уже показанный QR-код, поскольку будем искать новый на том же экране
     ClipBoard.Assign(Image1.Picture);
-
     ImageList2.GetBitMap(0, Image1.Picture.Bitmap);
 
     Application.ProcessMessages;
@@ -615,6 +614,7 @@ begin
   finally
     MyBitmap.Free;
     Image1.Picture.Assign(Clipboard);
+    ClipBoard.Clear;
   end;
 end;
 
