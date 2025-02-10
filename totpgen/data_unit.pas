@@ -107,6 +107,10 @@ begin
   TOTPini.IniFileName := '';
 
   DataForm.Close;
+
+  //Перечитать QR-картинку
+  MainForm.ListBox1.SetFocus;
+  MainForm.ListBox1.Click;
 end;
 
 procedure TDataForm.FormClose(Sender: TObject; var CloseAction: TCloseAction);

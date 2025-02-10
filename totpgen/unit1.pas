@@ -7,7 +7,8 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Buttons, StdCtrls,
   IniPropStorage, DefaultTranslator, LCLTranslator, LCLType, ClipBrd,
-  AsyncProcess, Types, FileUtil, Process, IniFiles, LCLIntf, URIParser;
+  AsyncProcess, Types, FileUtil, Process, IniFiles, LCLIntf, ExtCtrls,
+  URIParser;
 
 type
 
@@ -16,6 +17,8 @@ type
   TMainForm = class(TForm)
     AddBtn: TSpeedButton;
     GetQR: TAsyncProcess;
+    Image1: TImage;
+    ImageList2: TImageList;
     QRBtn: TSpeedButton;
     GETBtn: TBitBtn;
     DeleteBtn: TSpeedButton;
@@ -40,6 +43,7 @@ type
     procedure GETBtnClick(Sender: TObject);
     procedure GetQRReadData(Sender: TObject);
     procedure GetTOTPReadData(Sender: TObject);
+    procedure ListBox1Click(Sender: TObject);
     procedure ListBox1DblClick(Sender: TObject);
     procedure ListBox1DrawItem(Control: TWinControl; Index: integer;
       ARect: TRect; State: TOwnerDrawState);
@@ -386,6 +390,116 @@ begin
   end;
 end;
 
+// URLEncode
+function URLEncode(const S: string): string;
+const
+  HexChars: array[0..15] of char = '0123456789ABCDEF';
+var
+  I: integer;
+  C: char;
+begin
+  Result := '';
+  for I := 1 to Length(S) do
+  begin
+    C := S[I];
+    if (C in ['a'..'z', 'A'..'Z', '0'..'9', '-', '.', '_', '~']) then
+      Result := Result + C
+    else
+      Result := Result + '%' + HexChars[Ord(C) shr 4] + HexChars[Ord(C) and $0F];
+  end;
+end;
+
+//URLDecode
+function URLDecode(const S: string): string;
+var
+  I, Len: integer;
+  HexStr: string;
+  DecodedChar: char;
+begin
+  Result := '';
+  Len := Length(S);
+  I := 1;
+
+  while I <= Len do
+  begin
+    if (S[I] = '%') and (I + 2 <= Len) then
+    begin
+      // Получаем 2 символа после '%', чтобы декодировать их как шестнадцатеричное число
+      HexStr := Copy(S, I + 1, 2);
+      try
+        // Преобразуем строку в число
+        DecodedChar := Chr(StrToInt('$' + HexStr));
+        Result := Result + DecodedChar;
+        Inc(I, 3); // Пропускаем '%XX'
+      except
+        on E: EConvertError do
+        begin
+          // Если не удалось декодировать, просто добавляем '%' как есть
+          Result := Result + '%';
+          Inc(I);
+        end;
+      end;
+    end
+    else
+    begin
+      // Просто добавляем обычные символы
+      Result := Result + S[I];
+      Inc(I);
+    end;
+  end;
+end;
+
+//Отображение QR-кода из списка
+procedure TMainForm.ListBox1Click(Sender: TObject);
+var
+  INI: TIniFile;
+  QRtxt, KEY, HASH: string;
+  DIGITS, COUNTER, HOTP: integer;
+begin
+  if ListBox1.Count = 0 then Exit;
+
+  try
+    INI := TIniFile.Create(WorkDir + ListBox1.Items[ListBox1.ItemIndex]);
+    KEY := INI.ReadString('TApplication.DataForm', 'Edit2_Text', '');
+    HASH := INI.ReadString('TApplication.DataForm', 'Combobox1_Text', 'SHA1');
+    DIGITS := INI.ReadInteger('TApplication.DataForm', 'SpinEdit1_Value', 6);
+    COUNTER := INI.ReadInteger('TApplication.DataForm', 'HOTPCounter_Value', 0);
+    HOTP := INI.ReadInteger('TApplication.DataForm', 'HOTP_Checked', 0);
+
+    if HOTP = 0 then
+    begin
+      QRtxt := QRtxt + 'otpauth://totp/';
+      QRtxt := QRtxt + URLEncode(ListBox1.Items[ListBox1.ItemIndex]);
+      QRtxt := QRtxt + '?';
+      QRtxt := QRtxt + 'secret=' + KEY + '&' + 'issuer=' +
+        URLEncode(ListBox1.Items[ListBox1.ItemIndex]) + '&' +
+        'algorithm=' + HASH + '&' + 'digits=' + IntToStr(DIGITS);
+    end
+    else
+    begin
+      QRtxt := QRtxt + 'otpauth://hotp/';
+      QRtxt := QRtxt + URLEncode(ListBox1.Items[ListBox1.ItemIndex]);
+      QRtxt := QRtxt + '?';
+      QRtxt := QRtxt + 'secret=' + KEY + '&' + 'issuer=' +
+        URLEncode(ListBox1.Items[ListBox1.ItemIndex]) + '&' +
+        'algorithm=' + HASH + '&' + 'digits=' + IntToStr(DIGITS) +
+        '&' + 'counter=' + IntToStr(COUNTER);
+    end;
+
+    StartProcess('qrencode "' + QRtxt +
+      '" -o ~/.config/totpgen/qr.xpm --margin=2 --type=XPM');
+
+    if FileExists(GetUserDir + '.config/totpgen/qr.xpm') then
+    begin
+      Image1.Picture.LoadFromFile(GetUserDir + '.config/totpgen/qr.xpm');
+      DeleteFile(GetUserDir + '.config/totpgen/qr.xpm');
+    end;
+
+  finally
+    INI.Free;
+  end;
+end;
+
 //Редактирование DblClick (F4)
 procedure TMainForm.ListBox1DblClick(Sender: TObject);
 begin
@@ -477,6 +591,15 @@ var
   MyBitmap: TBitmap;
 begin
   try
+    //Скрываем уже показанный QR-код, поскольку будем искать новый на том же экране
+    ClipBoard.Assign(Image1.Picture);
+
+    ImageList2.GetBitMap(0, Image1.Picture.Bitmap);
+
+    Application.ProcessMessages;
+    sleep(300);
+    Application.ProcessMessages;
+
     MyBitmap := TBitmap.Create;
     ScreenDC := GetDC(0);
     MyBitmap.LoadFromDevice(ScreenDC);
@@ -491,6 +614,7 @@ begin
 
   finally
     MyBitmap.Free;
+    Image1.Picture.Assign(Clipboard);
   end;
 end;
 
@@ -532,7 +656,13 @@ begin
         end;
 
       //Курсор в начало
-      if ListBox1.Count <> 0 then ListBox1.ItemIndex := 0;
+      if ListBox1.Count <> 0 then
+      begin
+        ListBox1.ItemIndex := 0;
+        ListBox1.Click;
+      end
+      else
+        Image1.Picture.Clear;
 
       ListBox1.Items.SaveToFile(WorkDir + 'totp.list');
     end;

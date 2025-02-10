@@ -1,7 +1,7 @@
 object DataForm: TDataForm
-  Left = 433
+  Left = 443
   Height = 255
-  Top = 202
+  Top = 172
   Width = 391
   ActiveControl = Edit1
   Caption = 'DataForm'
@@ -14,7 +14,7 @@ object DataForm: TDataForm
   OnShow = FormShow
   Position = poDefault
   SessionProperties = 'ComboBox1.Text;Edit2.Text;Edit3.Text;HOTPCounter.Value;SpinEdit1.Value;HOTP.Checked'
-  LCLVersion = '3.2.0.0'
+  LCLVersion = '3.8.0.0'
   object Label1: TLabel
     AnchorSideTop.Control = Edit1
     AnchorSideTop.Side = asrCenter
