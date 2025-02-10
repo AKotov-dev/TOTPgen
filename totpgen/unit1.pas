@@ -593,12 +593,14 @@ var
   MyBitmap: TBitmap;
 begin
   try
+    QRBtn.Enabled := False;
+
     //Скрываем уже показанный QR-код, поскольку будем искать новый на том же экране
     ClipBoard.Assign(Image1.Picture);
     ImageList2.GetBitMap(0, Image1.Picture.Bitmap);
 
     Application.ProcessMessages;
-    sleep(300);
+    Sleep(300);
     Application.ProcessMessages;
 
     MyBitmap := TBitmap.Create;
@@ -615,6 +617,7 @@ begin
 
   finally
     MyBitmap.Free;
+    QRBtn.Enabled := True;
     Image1.Picture.Assign(Clipboard);
     ClipBoard.Clear;
   end;

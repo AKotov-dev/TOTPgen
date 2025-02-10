@@ -31,7 +31,7 @@ urlcopy=https://github.com/AKotov-dev/TOTPgen
 license=GPLv3
 
 [DEPS]
-deps=gtk2 polkit oath-toolkit zbar
+deps=gtk2 polkit oath-toolkit zbar qrencode
 
 [META]
 meta=0
