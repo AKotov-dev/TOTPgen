@@ -773,6 +773,7 @@ object MainForm: TMainForm
     Anchors = [akLeft, akBottom]
     BorderSpacing.Bottom = 4
     Stretch = True
+    Visible = False
   end
   object IniPropStorage1: TIniPropStorage
     StoredValues = <>

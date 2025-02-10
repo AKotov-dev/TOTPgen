@@ -495,6 +495,8 @@ begin
       DeleteFile(GetUserDir + '.config/totpgen/qr.xpm');
     end;
 
+    Image1.Visible := True;
+
   finally
     INI.Free;
   end;
@@ -662,7 +664,7 @@ begin
         ListBox1.Click;
       end
       else
-        Image1.Picture.Clear;
+        Image1.Hide;
 
       ListBox1.Items.SaveToFile(WorkDir + 'totp.list');
     end;
