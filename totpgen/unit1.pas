@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Buttons, StdCtrls,
   IniPropStorage, DefaultTranslator, LCLTranslator, LCLType, ClipBrd,
-  AsyncProcess, Types, FileUtil, Process, IniFiles, LCLIntf;
+  AsyncProcess, Types, FileUtil, Process, IniFiles, LCLIntf, URIParser;
 
 type
 
@@ -51,6 +51,8 @@ type
     procedure SortBtnClick(Sender: TObject);
     procedure StartProcess(command: string);
     function QRDecode(URL, val: string): string;
+    //   function URLDecode(URL, val: string): string;
+
   private
 
   public
@@ -79,51 +81,11 @@ uses totp_unit, data_unit;
 
   { TMainForm }
 
-//Issuer Decode (URI format)
-function DecodeUrl(const url: string): string;
-var
-  x: integer;
-  ch: string;
-  sVal: string;
-  Buff: string;
-begin
-  //Init
-  Buff := '';
-  x := 1;
-  while x <= Length(url) do
-  begin
-    //Get single char
-    ch := url[x];
-
-    if ch = '+' then
-    begin
-      //Append space
-      Buff := Buff + ' ';
-    end
-    else if ch <> '%' then
-    begin
-      //Append other chars
-      Buff := Buff + ch;
-    end
-    else
-    begin
-      //Get value
-      sVal := Copy(url, x + 1, 2);
-      //Convert sval to int then to char
-      Buff := Buff + char(StrToInt('$' + sVal));
-      //Inc counter by 2
-      Inc(x, 2);
-    end;
-    //Inc counter
-    Inc(x);
-  end;
-  //Return result
-  Result := Buff;
-end;
-
 //Парсер URL otpauth://totp/%...
+//URL - Декодирование/Нормализация/Поиск
 function TMainForm.QRDecode(URL, val: string): string;
 var
+  U: TURI;
   i: integer;
   S: TStringList;
 begin
@@ -133,26 +95,40 @@ begin
 
     //Нормализация URL; Убираем переводы строк
     URL := StringReplace(URL, #13#10, '', [rfReplaceAll, rfIgnoreCase]);
-    //Убираем "?"
-    URL := StringReplace(URL, '?', '&', [rfReplaceAll, rfIgnoreCase]);
+    //Убираем пробелы
+    URL := StringReplace(URL, ' ', '', [rfReplaceAll, rfIgnoreCase]);
     //Убираем кавычки
     URL := StringReplace(URL, '"', '', [rfReplaceAll, rfIgnoreCase]);
 
-    //Грузим линейный текст
-    S.Text := URL;
+    //Декодируем и парсим URL (stage-1)
+    U := URIParser.ParseURI(URL, True);
 
-    //Разделяем значения на Items по (&)
-    S.Delimiter := '&';
-    S.StrictDelimiter := True;
-    S.DelimitedText := S[0];
+    //LABEL
+    case val of
+      'label': Result := U.Document;
+    end;
 
-    //Поиск соответствия
-    for i := 0 to S.Count - 1 do
-      if Copy(S[i], 1, Pos('=', S[i]) - 1) = val then
-      begin
-        Result := Copy(S[i], Pos('=', S[i]) + 1, Length(S[i]));
-        Break;
-      end;
+    //Если не найден выше...
+    if (Result = 'none') and (U.Params <> '') then
+    begin
+      //Stage-2; Остальные параметры: security, type, encryption, path
+
+      //Грузим линейный текст
+      S.Text := U.Params;
+
+      //Разделяем значения на Items по (&)
+      S.Delimiter := '&';
+      S.StrictDelimiter := True;
+      S.DelimitedText := S[0];
+
+      //Поиск соответствия
+      for i := 0 to S.Count - 1 do
+        if Copy(S[i], 1, Pos('=', S[i]) - 1) = val then
+        begin
+          Result := Copy(S[i], Pos('=', S[i]) + 1, Length(S[i]));
+          Break;
+        end;
+    end;
 
   finally
     S.Free;
@@ -183,39 +159,43 @@ begin
   end;
 end;
 
-//HEX формат?
-function IsHexFormat(input: string): boolean;
+//HEX или Base32
+function IsHexOrBase32(const str: string): string;
 var
   i: integer;
+  isHex, isBase32: boolean;
 begin
-  Result := True;
-  for i := 1 to Length(input) do
+  isHex := True;
+  isBase32 := True;
+
+  // Проверяем, является ли строка корректным hex
+  for i := 1 to Length(str) do
   begin
-    if not (input[i] in ['0'..'9', 'A'..'F', 'a'..'f']) then
+    if not (str[i] in ['0'..'9', 'a'..'f', 'A'..'F']) then
     begin
-      Result := False;
+      isHex := False;
       Break;
     end;
   end;
-end;
 
-//BASE32 формат?
-function IsBase32Format(input: string): boolean;
-var
-  i: integer;
-begin
-  input := UpperCase(input);
-  Result := True;
-  for i := 1 to Length(input) do
+  // Проверяем, является ли строка корректным base32
+  for i := 1 to Length(str) do
   begin
-    if not (input[i] in ['A'..'Z', '2'..'7', '=']) then
+    if not (str[i] in ['A'..'Z', '2'..'7', '=', 'a'..'z']) then
     begin
-      Result := False;
+      isBase32 := False;
       Break;
     end;
   end;
-end;
 
+  // Возвращаем результат
+  if isHex then
+    Result := ' '
+  else if isBase32 then
+    Result := ' -b '
+  else
+    Result := 'Unknown';
+end;
 
 //StartCommand
 procedure TMainForm.StartProcess(command: string);
@@ -277,20 +257,20 @@ begin
   if ListBox1.Count <> 0 then ListBox1.Click;
 end;
 
-//Online Generator: https://totp.app/
+//Online QR Generator: https://stefansundin.github.io/2fa-qr/
 //Doc: https://www.tenminutetutor.com/data-formats/binary-encoding/base32-encoding/
 //A..Z a..z 2..7  max field length = 40 symbols
 procedure TMainForm.GETBtnClick(Sender: TObject);
 var
   INI: TIniFile;
-  Key, HASH: string;
+  KEY, HASH: string;
   DIGITS, COUNTER, HOTP: integer;
 begin
   if ListBox1.SelCount = 0 then Exit;
 
   try
     INI := TIniFile.Create(WorkDir + ListBox1.Items[ListBox1.ItemIndex]);
-    Key := INI.ReadString('TApplication.DataForm', 'Edit2_Text', '');
+    KEY := INI.ReadString('TApplication.DataForm', 'Edit2_Text', '');
     HASH := INI.ReadString('TApplication.DataForm', 'Combobox1_Text', 'SHA1');
     DIGITS := INI.ReadInteger('TApplication.DataForm', 'SpinEdit1_Value', 6);
     COUNTER := INI.ReadInteger('TApplication.DataForm', 'HOTPCounter_Value', 0);
@@ -299,32 +279,24 @@ begin
     GetTOTP.Parameters.Clear;
     GetTOTP.Parameters.Add('-c');
 
-    if HOTP = 0 then
+    if IsHexOrBase32(KEY) <> 'Unknown' then
     begin
-
-      //Валидация символов TOTP: HEX или BASE32
-      if IsHexFormat(KEY) then
-        GetTOTP.Parameters.Add('oathtool --totp=' + HASH + ' --digits=' +
-          IntToStr(DIGITS) + ' ' + '''' + KEY + '''')
-      else if IsBase32Format(KEY) then
-        GetTOTP.Parameters.Add('oathtool -b --totp=' + HASH +
-          ' --digits=' + IntToStr(DIGITS) + ' ' + '''' + KEY + '''')
+      if HOTP = 0 then
+        //Валидация символов TOTP: HEX или BASE32
+        GetTOTP.Parameters.Add('oathtool' + IsHexOrBase32(KEY) +
+          '--totp=' + HASH + ' --digits=' + IntToStr(DIGITS) + ' ' + '''' + KEY + '''')
       else
-        MessageDlg(SNoKeyFormat, mtWarning, [mbOK], 0);
+        //HOTP
+        GetTOTP.Parameters.Add('oathtool' + IsHexOrBase32(KEY) +
+          '--hotp --digits=' + IntToStr(DIGITS) + ' ' + '''' + KEY +
+          '''' + ' --counter=' + IntToStr(COUNTER));
+
+      //Получить TOTP
+      GetTOTP.Execute;
     end
     else
-    begin   //HOTP
-      if IsHexFormat(KEY) then
-        GetTOTP.Parameters.Add('oathtool --hotp --digits=' +
-          IntToStr(DIGITS) + ' ' + '''' + KEY + '''' + ' --counter=' + IntToStr(COUNTER))
-      else if IsBase32Format(KEY) then
-        GetTOTP.Parameters.Add('oathtool -b --hotp --digits=' +
-          IntToStr(DIGITS) + ' ' + '''' + KEY + '''' + ' --counter=' + IntToStr(COUNTER))
-      else
-        MessageDlg(SNoKeyFormat, mtWarning, [mbOK], 0);
-    end;
-
-    GetTOTP.Execute;
+      //Формат ключа не определен
+      MessageDlg(SNoKeyFormat, mtWarning, [mbOK], 0);
 
   finally
     INI.Free;
@@ -361,8 +333,12 @@ begin
         //Дешифрация основных параметров из QR-кода
         //https://github.com/google/google-authenticator/wiki/Key-Uri-Format (Issuer - для новых версий)
         //https://docs.yubico.com/yesdk/users-manual/application-oath/uri-string-format.html
+
+        if (QRDecode(S[0], 'label') <> '') then
+          Edit1.Text := QRDecode(S[0], 'label')
+        else
         if (QRDecode(S[0], 'issuer') <> 'none') then
-          Edit1.Text := DecodeURL(QRDecode(S[0], 'issuer'));
+          Edit1.Text := QRDecode(S[0], 'issuer');
 
         if (QRDecode(S[0], 'secret') <> 'none') then
           Edit2.Text := QRDecode(S[0], 'secret');
@@ -395,10 +371,16 @@ begin
     S := TStringList.Create;
     S.LoadFromStream(GetTOTP.Output);
 
-    ClipBoard.AsText := Trim(S[0]);
-    TOTPForm.Label1.Caption := Trim(S[0]);
+    if Pos(':', S.Text) <> 0 then
+      //Формат ключа не определен
+      MessageDlg(SNoKeyFormat, mtWarning, [mbOK], 0)
+    else
+    begin //Иначе - копируем в буфер и выводим код TOTP/HOTP
+      ClipBoard.AsText := Trim(S[0]);
+      TOTPForm.Label1.Caption := Trim(S[0]);
 
-    TOTPForm.ShowModal;
+      TOTPForm.ShowModal;
+    end;
   finally
     S.Free;
   end;

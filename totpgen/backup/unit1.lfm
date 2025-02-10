@@ -1,5 +1,5 @@
 object MainForm: TMainForm
-  Left = 289
+  Left = 287
   Height = 633
   Top = 127
   Width = 441
@@ -12,7 +12,7 @@ object MainForm: TMainForm
   OnKeyUp = FormKeyUp
   OnShow = FormShow
   SessionProperties = 'Height;Left;Top;Width;OpenDialog1.InitialDir;SaveDialog1.InitialDir'
-  LCLVersion = '3.2.0.0'
+  LCLVersion = '3.8.0.0'
   object LoadBtn: TSpeedButton
     Left = 8
     Height = 40
@@ -762,14 +762,14 @@ object MainForm: TMainForm
   end
   object IniPropStorage1: TIniPropStorage
     StoredValues = <>
-    Left = 52
-    Top = 120
+    Left = 48
+    Top = 80
   end
   object ImageList1: TImageList
     Height = 24
     Width = 24
-    Left = 160
-    Top = 120
+    Left = 156
+    Top = 80
     Bitmap = {
       4C7A010000001800000018000000EF0100000000000078DA63604080250D427C
       2B5AA58C5635491A138B973749196EEC14E165200056B648C7AF6C91FABDA259
@@ -793,11 +793,7 @@ object MainForm: TMainForm
   object GetTOTP: TAsyncProcess
     Active = False
     Executable = 'bash'
-    Parameters.Strings = (
-      '-c'
-      'echo "Mount point: $(lsblk /dev/sda3 -l | grep crypt | awk ''{print $NF}'')"'
-    )
-    Options = [poWaitOnExit, poUsePipes]
+    Options = [poWaitOnExit, poUsePipes, poStderrToOutPut]
     Priority = ppNormal
     StartupOptions = []
     ShowWindow = swoNone
@@ -809,28 +805,24 @@ object MainForm: TMainForm
     WindowWidth = 0
     FillAttribute = 0
     OnReadData = GetTOTPReadData
-    Left = 264
-    Top = 120
+    Left = 260
+    Top = 80
   end
   object OpenDialog1: TOpenDialog
     DefaultExt = '.tar.gz'
     Filter = 'TOTPgen archive (*.tar.gz)|*.tar.gz'
-    Left = 52
-    Top = 216
+    Left = 48
+    Top = 176
   end
   object SaveDialog1: TSaveDialog
     Filter = 'TOTPgen archive (*.tar.gz)|*.tar.gz'
     Options = [ofOverwritePrompt, ofEnableSizing, ofViewDetail]
-    Left = 160
-    Top = 220
+    Left = 156
+    Top = 180
   end
   object GetQR: TAsyncProcess
     Active = False
     Executable = 'bash'
-    Parameters.Strings = (
-      '-c'
-      'echo "Mount point: $(lsblk /dev/sda3 -l | grep crypt | awk ''{print $NF}'')"'
-    )
     Options = [poWaitOnExit, poUsePipes]
     Priority = ppNormal
     StartupOptions = []
@@ -843,7 +835,7 @@ object MainForm: TMainForm
     WindowWidth = 0
     FillAttribute = 0
     OnReadData = GetQRReadData
-    Left = 264
-    Top = 224
+    Left = 260
+    Top = 184
   end
 end

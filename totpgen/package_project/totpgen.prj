@@ -2,7 +2,7 @@
 name=totpgen
 
 [VERSION]
-version=0.5
+version=0.6
 
 [RELEASE]
 release=0.mrx9
@@ -63,25 +63,30 @@ devtool=Lazarus
 toolversion=3.8
 
 [INFO]
-0=v0.5
-1=+ Recompilation in Lazarus-3.8
-2=+ Fix `BASE32`key decoding
+0=v0.6
+1=+ Improved key format detection
+2=+ Label or Issuer as Name from QR code
 3=+ RPM packages for Mageia-9
 4=
-5=v0.4
-6=+ Added work with HOTP
-7=+ RPM packages for Mageia-9
-8=
-9=v0.3
-10=+ Cosmetic edits
-11=+ Reading Issuer as a name in a list
+5=v0.5
+6=+ Recompilation in Lazarus-3.8
+7=+ Fix `BASE32`key decoding
+8=+ RPM packages for Mageia-9
+9=
+10=v0.4
+11=+ Added work with HOTP
 12=+ RPM packages for Mageia-9
 13=
-14=v0.2
-15=+ Added dependency zbar (spec)
-16=+ Scan TOTP QR code from the screen
+14=v0.3
+15=+ Cosmetic edits
+16=+ Reading Issuer as a name in a list
 17=+ RPM packages for Mageia-9
 18=
-19=v0.1
-20=+ Initial release
-21=+ RPM packages for Mageia-9
+19=v0.2
+20=+ Added dependency zbar (spec)
+21=+ Scan TOTP QR code from the screen
+22=+ RPM packages for Mageia-9
+23=
+24=v0.1
+25=+ Initial release
+26=+ RPM packages for Mageia-9
