@@ -20,4 +20,5 @@ oathtool -b --totp 'your_base32_secret_key'
 ```
 If a `TOTP/HOTP` password is not created, enter the correct secret key. If the site does not accept a password, check the time on your computer.
 
-
+**Useful links:**
+[2FA QR Code Generator](https://stefansundin.github.io/2fa-qr/), [TOTP/HOTP URI string format](https://docs.yubico.com/yesdk/users-manual/application-oath/uri-string-format.html)
