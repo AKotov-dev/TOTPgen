@@ -47,7 +47,7 @@ end;
 
 procedure TTOTPForm.FormKeyPress(Sender: TObject; var Key: char);
 begin
-  if Key = #13 then Close;
+  if (Key = #13) or (Key = #27) then Close;
 end;
 
 procedure TTOTPForm.OkBtnClick(Sender: TObject);

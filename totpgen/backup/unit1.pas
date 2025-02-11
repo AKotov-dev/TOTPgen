@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Buttons, StdCtrls,
   IniPropStorage, DefaultTranslator, LCLTranslator, LCLType, ClipBrd,
   AsyncProcess, Types, FileUtil, Process, IniFiles, LCLIntf, ExtCtrls,
-  URIParser;
+  URIParser, StrUtils;
 
 type
 
@@ -54,8 +54,6 @@ type
     procedure SelectAllClick(Sender: TObject);
     procedure SortBtnClick(Sender: TObject);
     procedure StartProcess(command: string);
-    function QRDecode(URL, val: string): string;
-    //   function URLDecode(URL, val: string): string;
 
   private
 
@@ -87,7 +85,7 @@ uses totp_unit, data_unit;
 
 //Парсер URL otpauth://totp/%...
 //URL - Декодирование/Нормализация/Поиск
-function TMainForm.QRDecode(URL, val: string): string;
+function QRDecode(URL, val: string): string;
 var
   U: TURI;
   i: integer;
@@ -474,8 +472,8 @@ begin
     else
       QRtxt := Concat('otpauth://hotp/', URLEncode(ListBox1.Items[ListBox1.ItemIndex]),
         '?', 'secret=', KEY, '&', 'issuer=', URLEncode(ISSUER), '&',
-        'algorithm=', HASH, '&', 'digits=', IntToStr(DIGITS), '&', 'counter=',
-        IntToStr(COUNTER));
+        'algorithm=', HASH, '&', 'digits=', IntToStr(DIGITS), '&',
+        'counter=', IntToStr(COUNTER));
 
     StartProcess('qrencode "' + QRtxt +
       '" -o ~/.config/totpgen/qr.xpm --margin=2 --type=XPM');
@@ -687,10 +685,9 @@ begin
   DataForm.ShowModal;
 end;
 
-//Добавить запись
+//Добавить запись (Default)
 procedure TMainForm.AddBtnClick(Sender: TObject);
 begin
-  //Default add
   with DataForm do
   begin
     TOTPini.IniFileName := '';
@@ -698,6 +695,7 @@ begin
     Caption := SAppendRecord;
     Edit1.Clear;
     Edit2.Clear;
+    Edit3.Clear;
     ComboBox1.Text := 'SHA1';
     SpinEdit1.Value := 6;
     HOTP.Checked := False;

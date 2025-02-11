@@ -54,8 +54,6 @@ type
     procedure SelectAllClick(Sender: TObject);
     procedure SortBtnClick(Sender: TObject);
     procedure StartProcess(command: string);
-    function QRDecode(URL, val: string): string;
-    //   function URLDecode(URL, val: string): string;
 
   private
 
@@ -87,7 +85,7 @@ uses totp_unit, data_unit;
 
 //Парсер URL otpauth://totp/%...
 //URL - Декодирование/Нормализация/Поиск
-function TMainForm.QRDecode(URL, val: string): string;
+function QRDecode(URL, val: string): string;
 var
   U: TURI;
   i: integer;
@@ -139,7 +137,7 @@ begin
   end;
 end;
 
-// URLEncode
+//URLEncode
 function URLEncode(const S: string): string;
 const
   HexChars: array[0..15] of char = '0123456789ABCDEF';
@@ -474,8 +472,8 @@ begin
     else
       QRtxt := Concat('otpauth://hotp/', URLEncode(ListBox1.Items[ListBox1.ItemIndex]),
         '?', 'secret=', KEY, '&', 'issuer=', URLEncode(ISSUER), '&',
-        'algorithm=', HASH, '&', 'digits=', IntToStr(DIGITS), '&', 'counter=',
-        IntToStr(COUNTER));
+        'algorithm=', HASH, '&', 'digits=', IntToStr(DIGITS), '&',
+        'counter=', IntToStr(COUNTER));
 
     StartProcess('qrencode "' + QRtxt +
       '" -o ~/.config/totpgen/qr.xpm --margin=2 --type=XPM');
@@ -687,10 +685,9 @@ begin
   DataForm.ShowModal;
 end;
 
-//Добавить запись
+//Добавить запись (Default)
 procedure TMainForm.AddBtnClick(Sender: TObject);
 begin
-  //Default add
   with DataForm do
   begin
     TOTPini.IniFileName := '';

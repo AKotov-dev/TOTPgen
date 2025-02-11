@@ -115,8 +115,12 @@ begin
   MainForm.ListBox1.Click;
 end;
 
+//При новом открытии формы должны быть пусты
 procedure TDataForm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
+  Edit1.Clear;
+  Edit2.Clear;
+  Edit3.Clear;
   HOTP.Checked := False;
   HOTPCounter.Value := 0;
 end;
@@ -127,12 +131,14 @@ begin
   TOTPini.IniFileName := '';
 end;
 
+//Enter & Escape
 procedure TDataForm.FormKeyPress(Sender: TObject; var Key: char);
 begin
   if Key = #13 then ApplyBtn.Click;
   if Key = #27 then DataForm.Close;
 end;
 
+//Position
 procedure TDataForm.FormShow(Sender: TObject);
 begin
   Top := MainForm.Top + 100;
@@ -140,6 +146,7 @@ begin
   Edit1.SetFocus;
 end;
 
+//HOTP
 procedure TDataForm.HOTPChange(Sender: TObject);
 begin
   if HOTP.Checked then HOTPCounter.Enabled := True

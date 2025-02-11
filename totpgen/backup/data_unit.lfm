@@ -1,5 +1,5 @@
 object DataForm: TDataForm
-  Left = 372
+  Left = 377
   Height = 288
   Top = 145
   Width = 391
@@ -318,10 +318,13 @@ object DataForm: TDataForm
     AnchorSideRight.Side = asrBottom
     Left = 59
     Height = 37
+    Hint = 'Key issuer'
     Top = 88
     Width = 324
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Right = 8
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 2
   end
   object TOTPini: TIniPropStorage
