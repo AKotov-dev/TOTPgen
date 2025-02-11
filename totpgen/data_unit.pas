@@ -14,6 +14,7 @@ type
 
   TDataForm = class(TForm)
     ApplyBtn: TBitBtn;
+    Edit3: TEdit;
     HOTP: TCheckBox;
     ComboBox1: TComboBox;
     Edit1: TEdit;
@@ -23,6 +24,7 @@ type
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
+    Label6: TLabel;
     SpinEdit1: TSpinEdit;
     HOTPCounter: TSpinEdit;
     TOTPini: TIniPropStorage;
@@ -72,12 +74,12 @@ begin
   Edit2.Text := StringReplace(Edit2.Text, ' ', '', [rfReplaceAll, rfIgnoreCase]);
 
   //Если Имя или Ключ не введены = Выход
-  if (Edit1.Text = '') or (Edit2.Text = '') then Exit;
+  if (Edit1.Text = '') or (Edit2.Text = '') or (Edit3.Text = '') then Exit;
 
   //Редактирование записи
   if (MainForm.ListBox1.SelCount <> 0) and (TOTPini.IniFileName <> '') then
   begin
-    //  ShowMessage('EDIT');
+    // ShowMessage('EDIT');
     TOTPini.Save;
 
     //Переименовать ini файл

@@ -29,6 +29,10 @@ msgctxt "tdataform.edit2.hint"
 msgid "Base32 or hex format"
 msgstr ""
 
+#: tdataform.edit3.hint
+msgid "Key issuer"
+msgstr ""
+
 #: tdataform.hotp.caption
 msgctxt "tdataform.hotp.caption"
 msgid "HOTP"
@@ -56,6 +60,10 @@ msgstr ""
 #: tdataform.label5.caption
 msgctxt "tdataform.label5.caption"
 msgid "Counter"
+msgstr ""
+
+#: tdataform.label6.caption
+msgid "Issuer"
 msgstr ""
 
 #: tdataform.spinedit1.hint

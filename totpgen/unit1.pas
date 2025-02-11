@@ -139,6 +139,65 @@ begin
   end;
 end;
 
+// URLEncode
+function URLEncode(const S: string): string;
+const
+  HexChars: array[0..15] of char = '0123456789ABCDEF';
+var
+  I: integer;
+  C: char;
+begin
+  Result := '';
+  for I := 1 to Length(S) do
+  begin
+    C := S[I];
+    if (C in ['a'..'z', 'A'..'Z', '0'..'9', '-', '.', '_', '~']) then
+      Result := Result + C
+    else
+      Result := Result + '%' + HexChars[Ord(C) shr 4] + HexChars[Ord(C) and $0F];
+  end;
+end;
+
+//URLDecode
+function URLDecode(const S: string): string;
+var
+  I, Len: integer;
+  HexStr: string;
+  DecodedChar: char;
+begin
+  Result := '';
+  Len := Length(S);
+  I := 1;
+
+  while I <= Len do
+  begin
+    if (S[I] = '%') and (I + 2 <= Len) then
+    begin
+      // Получаем 2 символа после '%', чтобы декодировать их как шестнадцатеричное число
+      HexStr := Copy(S, I + 1, 2);
+      try
+        // Преобразуем строку в число
+        DecodedChar := Chr(StrToInt('$' + HexStr));
+        Result := Result + DecodedChar;
+        Inc(I, 3); // Пропускаем '%XX'
+      except
+        on E: EConvertError do
+        begin
+          // Если не удалось декодировать, просто добавляем '%' как есть
+          Result := Result + '%';
+          Inc(I);
+        end;
+      end;
+    end
+    else
+    begin
+      // Просто добавляем обычные символы
+      Result := Result + S[I];
+      Inc(I);
+    end;
+  end;
+end;
+
 //Валидация загружаемого архива (БД из *.tar.gz)
 function IsBackup(input: string): boolean;
 var
@@ -339,13 +398,13 @@ begin
         //https://docs.yubico.com/yesdk/users-manual/application-oath/uri-string-format.html
 
         if (QRDecode(S[0], 'label') <> '') then
-          Edit1.Text := QRDecode(S[0], 'label')
-        else
-        if (QRDecode(S[0], 'issuer') <> 'none') then
-          Edit1.Text := QRDecode(S[0], 'issuer');
+          Edit1.Text := QRDecode(S[0], 'label');
 
         if (QRDecode(S[0], 'secret') <> 'none') then
           Edit2.Text := QRDecode(S[0], 'secret');
+
+        if (QRDecode(S[0], 'issuer') <> 'none') then
+          Edit3.Text := QRDecode(S[0], 'issuer');
 
         if QRDecode(S[0], 'algorithm') <> 'none' then
           ComboBox1.Text := QRDecode(S[0], 'algorithm');
@@ -390,70 +449,11 @@ begin
   end;
 end;
 
-// URLEncode
-function URLEncode(const S: string): string;
-const
-  HexChars: array[0..15] of char = '0123456789ABCDEF';
-var
-  I: integer;
-  C: char;
-begin
-  Result := '';
-  for I := 1 to Length(S) do
-  begin
-    C := S[I];
-    if (C in ['a'..'z', 'A'..'Z', '0'..'9', '-', '.', '_', '~']) then
-      Result := Result + C
-    else
-      Result := Result + '%' + HexChars[Ord(C) shr 4] + HexChars[Ord(C) and $0F];
-  end;
-end;
-
-//URLDecode
-function URLDecode(const S: string): string;
-var
-  I, Len: integer;
-  HexStr: string;
-  DecodedChar: char;
-begin
-  Result := '';
-  Len := Length(S);
-  I := 1;
-
-  while I <= Len do
-  begin
-    if (S[I] = '%') and (I + 2 <= Len) then
-    begin
-      // Получаем 2 символа после '%', чтобы декодировать их как шестнадцатеричное число
-      HexStr := Copy(S, I + 1, 2);
-      try
-        // Преобразуем строку в число
-        DecodedChar := Chr(StrToInt('$' + HexStr));
-        Result := Result + DecodedChar;
-        Inc(I, 3); // Пропускаем '%XX'
-      except
-        on E: EConvertError do
-        begin
-          // Если не удалось декодировать, просто добавляем '%' как есть
-          Result := Result + '%';
-          Inc(I);
-        end;
-      end;
-    end
-    else
-    begin
-      // Просто добавляем обычные символы
-      Result := Result + S[I];
-      Inc(I);
-    end;
-  end;
-end;
-
 //Отображение QR-кода из списка
 procedure TMainForm.ListBox1Click(Sender: TObject);
 var
   INI: TIniFile;
-  QRtxt, KEY, HASH: string;
+  QRtxt, KEY, HASH, ISSUER: string;
   DIGITS, COUNTER, HOTP: integer;
 begin
   if ListBox1.Count = 0 then Exit;
@@ -461,6 +461,7 @@ begin
   try
     INI := TIniFile.Create(WorkDir + ListBox1.Items[ListBox1.ItemIndex]);
     KEY := INI.ReadString('TApplication.DataForm', 'Edit2_Text', '');
+    ISSUER := INI.ReadString('TApplication.DataForm', 'Edit3_Text', '');
     HASH := INI.ReadString('TApplication.DataForm', 'Combobox1_Text', 'SHA1');
     DIGITS := INI.ReadInteger('TApplication.DataForm', 'SpinEdit1_Value', 6);
     COUNTER := INI.ReadInteger('TApplication.DataForm', 'HOTPCounter_Value', 0);
@@ -468,14 +469,13 @@ begin
 
     if HOTP = 0 then
       QRtxt := Concat('otpauth://totp/', URLEncode(ListBox1.Items[ListBox1.ItemIndex]),
-        '?', 'secret=', KEY, '&', 'issuer=',
-        URLEncode(ListBox1.Items[ListBox1.ItemIndex]), '&', 'algorithm=',
-        HASH, '&', 'digits=', IntToStr(DIGITS))
+        '?', 'secret=', KEY, '&', 'issuer=', URLEncode(ISSUER), '&',
+        'algorithm=', HASH, '&', 'digits=', IntToStr(DIGITS))
     else
       QRtxt := Concat('otpauth://hotp/', URLEncode(ListBox1.Items[ListBox1.ItemIndex]),
-        '?', 'secret=', KEY, '&', 'issuer=', URLEncode(ListBox1.Items[ListBox1.ItemIndex]),
-        '&', 'algorithm=', HASH, '&', 'digits=', IntToStr(DIGITS), '&',
-        'counter=', IntToStr(COUNTER));
+        '?', 'secret=', KEY, '&', 'issuer=', URLEncode(ISSUER), '&',
+        'algorithm=', HASH, '&', 'digits=', IntToStr(DIGITS), '&', 'counter=',
+        IntToStr(COUNTER));
 
     StartProcess('qrencode "' + QRtxt +
       '" -o ~/.config/totpgen/qr.xpm --margin=2 --type=XPM');
@@ -698,6 +698,7 @@ begin
     Caption := SAppendRecord;
     Edit1.Clear;
     Edit2.Clear;
+    Edit3.Clear;
     ComboBox1.Text := 'SHA1';
     SpinEdit1.Value := 6;
     HOTP.Checked := False;

@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #: tdataform.applybtn.caption
 msgctxt "tdataform.applybtn.caption"
@@ -40,6 +40,10 @@ msgctxt "tdataform.edit2.hint"
 msgid "Base32 or hex format"
 msgstr "Формат base32 или hex"
 
+#: tdataform.edit3.hint
+msgid "Key issuer"
+msgstr "Эмитент ключа"
+
 #: tdataform.hotp.caption
 msgctxt "tdataform.hotp.caption"
 msgid "HOTP"
@@ -68,6 +72,10 @@ msgstr "Ключ"
 msgctxt "tdataform.label5.caption"
 msgid "Counter"
 msgstr "Счетчик"
+
+#: tdataform.label6.caption
+msgid "Issuer"
+msgstr ""
 
 #: tdataform.spinedit1.hint
 msgid "Default: 6"
