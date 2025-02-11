@@ -467,14 +467,9 @@ begin
     HOTP := INI.ReadInteger('TApplication.DataForm', 'HOTP_Checked', 0);
 
     if HOTP = 0 then
-    begin
-      QRtxt := QRtxt + 'otpauth://totp/';
-      QRtxt := QRtxt + URLEncode(ListBox1.Items[ListBox1.ItemIndex]);
-      QRtxt := QRtxt + '?';
-      QRtxt := QRtxt + 'secret=' + KEY + '&' + 'issuer=' +
-        URLEncode(ListBox1.Items[ListBox1.ItemIndex]) + '&' +
-        'algorithm=' + HASH + '&' + 'digits=' + IntToStr(DIGITS);
-    end
+      QRtxt := Concat('otpauth://totp/', URLEncode(ListBox1.Items[ListBox1.ItemIndex]),
+        '?', 'secret=', KEY, '&', 'issuer=', URLEncode(ListBox1.Items[ListBox1.ItemIndex]),
+        '&', 'algorithm=', HASH, '&', 'digits=', IntToStr(DIGITS))
     else
     begin
       QRtxt := QRtxt + 'otpauth://hotp/';
@@ -596,8 +591,9 @@ begin
     QRBtn.Enabled := False;
 
     //Скрываем уже показанный QR-код, поскольку будем искать новый на том же экране
-    if Image1.Picture <> nil then
+    if Image1.Picture.Graphic <> nil then
       ClipBoard.Assign(Image1.Picture);
+
     ImageList2.GetBitMap(0, Image1.Picture.Bitmap);
 
     Application.ProcessMessages;

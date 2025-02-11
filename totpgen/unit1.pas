@@ -467,24 +467,15 @@ begin
     HOTP := INI.ReadInteger('TApplication.DataForm', 'HOTP_Checked', 0);
 
     if HOTP = 0 then
-    begin
-      QRtxt := QRtxt + 'otpauth://totp/';
-      QRtxt := QRtxt + URLEncode(ListBox1.Items[ListBox1.ItemIndex]);
-      QRtxt := QRtxt + '?';
-      QRtxt := QRtxt + 'secret=' + KEY + '&' + 'issuer=' +
-        URLEncode(ListBox1.Items[ListBox1.ItemIndex]) + '&' +
-        'algorithm=' + HASH + '&' + 'digits=' + IntToStr(DIGITS);
-    end
+      QRtxt := Concat('otpauth://totp/', URLEncode(ListBox1.Items[ListBox1.ItemIndex]),
+        '?', 'secret=', KEY, '&', 'issuer=',
+        URLEncode(ListBox1.Items[ListBox1.ItemIndex]), '&', 'algorithm=',
+        HASH, '&', 'digits=', IntToStr(DIGITS))
     else
-    begin
-      QRtxt := QRtxt + 'otpauth://hotp/';
-      QRtxt := QRtxt + URLEncode(ListBox1.Items[ListBox1.ItemIndex]);
-      QRtxt := QRtxt + '?';
-      QRtxt := QRtxt + 'secret=' + KEY + '&' + 'issuer=' +
-        URLEncode(ListBox1.Items[ListBox1.ItemIndex]) + '&' +
-        'algorithm=' + HASH + '&' + 'digits=' + IntToStr(DIGITS) +
-        '&' + 'counter=' + IntToStr(COUNTER);
-    end;
+      QRtxt := Concat('otpauth://hotp/', URLEncode(ListBox1.Items[ListBox1.ItemIndex]),
+        '?', 'secret=', KEY, '&', 'issuer=', URLEncode(ListBox1.Items[ListBox1.ItemIndex]),
+        '&', 'algorithm=', HASH, '&', 'digits=', IntToStr(DIGITS), '&',
+        'counter=', IntToStr(COUNTER));
 
     StartProcess('qrencode "' + QRtxt +
       '" -o ~/.config/totpgen/qr.xpm --margin=2 --type=XPM');
