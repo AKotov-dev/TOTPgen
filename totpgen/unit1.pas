@@ -105,7 +105,7 @@ begin
     //Декодируем и парсим URL (stage-1)
     U := URIParser.ParseURI(URL, True);
 
-    //LABEL
+    //Получаем LABEL
     case val of
       'label': Result := U.Document;
     end;
@@ -172,7 +172,7 @@ begin
   begin
     if (S[I] = '%') and (I + 2 <= Len) then
     begin
-      // Получаем 2 символа после '%', чтобы декодировать их как шестнадцатеричное число
+      //Получаем 2 символа после '%', чтобы декодировать их как шестнадцатеричное число
       HexStr := Copy(S, I + 1, 2);
       try
         // Преобразуем строку в число
@@ -182,7 +182,7 @@ begin
       except
         on E: EConvertError do
         begin
-          // Если не удалось декодировать, просто добавляем '%' как есть
+          //Если не удалось декодировать, просто добавляем '%' как есть
           Result := Result + '%';
           Inc(I);
         end;
@@ -190,7 +190,7 @@ begin
     end
     else
     begin
-      // Просто добавляем обычные символы
+      //Просто добавляем обычные символы
       Result := Result + S[I];
       Inc(I);
     end;
@@ -201,8 +201,8 @@ end;
 //Валидация загружаемого архива (БД из *.tar.gz)
 function IsBackup(input: string): boolean;
 var
-  ExProcess: TProcess;
   S: TStringList;
+  ExProcess: TProcess;
 begin
   Result := True;
   S := TStringList.Create;
@@ -222,7 +222,7 @@ begin
   end;
 end;
 
-//HEX или BASE32
+//Ключ закодирован HEX или BASE32 ?
 function IsHexOrBase32(const str: string): string;
 var
   i: integer;
@@ -231,7 +231,7 @@ begin
   isHex := True;
   isBase32 := True;
 
-  // Проверяем, является ли строка корректным hex
+  //Проверяем, является ли строка корректным hex
   for i := 1 to Length(str) do
   begin
     if not (str[i] in ['0'..'9', 'a'..'f', 'A'..'F']) then
@@ -241,7 +241,7 @@ begin
     end;
   end;
 
-  // Проверяем, является ли строка корректным base32
+  //Проверяем, является ли строка корректным base32
   for i := 1 to Length(str) do
   begin
     if not (str[i] in ['A'..'Z', '2'..'7', '=', 'a'..'z']) then
@@ -251,7 +251,7 @@ begin
     end;
   end;
 
-  // Возвращаем результат
+  //Возвращаем результат
   if isHex then
     Result := ' '
   else if isBase32 then
@@ -260,7 +260,7 @@ begin
     Result := 'Unknown';
 end;
 
-// StartCommand
+//StartCommand - общая процедура запуска команд (синхронная)
 procedure TMainForm.StartProcess(command: string);
 var
   ExProcess: TProcess;
@@ -277,7 +277,7 @@ begin
   end;
 end;
 
-// Рабочий каталог WorkDir
+//Рабочий каталог WorkDir - глобальная переменная для tar и др.
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
   MainForm.Caption := Application.Title;
@@ -320,6 +320,7 @@ begin
   if ListBox1.Count <> 0 then ListBox1.Click;
 end;
 
+//Получить TOTP
 //Online QR Generator: https://stefansundin.github.io/2fa-qr/
 //Doc: https://www.tenminutetutor.com/data-formats/binary-encoding/base32-encoding/
 //A..Z a..z 2..7  max field length = 40 symbols
@@ -467,6 +468,7 @@ begin
     COUNTER := INI.ReadInteger('TApplication.DataForm', 'HOTPCounter_Value', 0);
     HOTP := INI.ReadInteger('TApplication.DataForm', 'HOTP_Checked', 0);
 
+    //Собираем URL totp/hotp
     if HOTP = 0 then
       QRtxt := Concat('otpauth://totp/', URLEncode(ListBox1.Items[ListBox1.ItemIndex]),
         '?', 'secret=', KEY, '&', 'issuer=', URLEncode(ISSUER), '&',
@@ -477,9 +479,11 @@ begin
         'algorithm=', HASH, '&', 'digits=', IntToStr(DIGITS), '&',
         'counter=', IntToStr(COUNTER));
 
+    //Создаём картинку QR-код
     StartProcess('qrencode "' + QRtxt +
       '" -o ~/.config/totpgen/qr.xpm --margin=2 --type=XPM');
 
+    //Если создана - показываем
     if FileExists(GetUserDir + '.config/totpgen/qr.xpm') then
     begin
       Image1.Picture.LoadFromFile(GetUserDir + '.config/totpgen/qr.xpm');
