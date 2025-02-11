@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Buttons, StdCtrls,
   IniPropStorage, DefaultTranslator, LCLTranslator, LCLType, ClipBrd,
   AsyncProcess, Types, FileUtil, Process, IniFiles, LCLIntf, ExtCtrls,
-  URIParser, StrUtils;
+  URIParser;
 
 type
 
@@ -113,7 +113,7 @@ begin
     //Если не найден выше...
     if (Result = 'none') and (U.Params <> '') then
     begin
-      //Stage-2; Остальные параметры: security, type, encryption, path
+      //Stage-2; Остальные параметры: algorithm, issuer, secret, digirs, counter
 
       //Грузим линейный текст
       S.Text := U.Params;
@@ -137,7 +137,7 @@ begin
   end;
 end;
 
-// URLEncode
+//URLEncode
 function URLEncode(const S: string): string;
 const
   HexChars: array[0..15] of char = '0123456789ABCDEF';
@@ -157,7 +157,7 @@ begin
 end;
 
 //URLDecode
-function URLDecode(const S: string): string;
+{function URLDecode(const S: string): string;
 var
   I, Len: integer;
   HexStr: string;
@@ -194,7 +194,7 @@ begin
       Inc(I);
     end;
   end;
-end;
+end; }
 
 //Валидация загружаемого архива (БД из *.tar.gz)
 function IsBackup(input: string): boolean;

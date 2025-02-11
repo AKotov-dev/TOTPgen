@@ -83,7 +83,7 @@ uses totp_unit, data_unit;
 
   { TMainForm }
 
-//Парсер URL otpauth://totp/%...
+//Парсер URL otpauth://totp/...
 //URL - Декодирование/Нормализация/Поиск
 function QRDecode(URL, val: string): string;
 var
@@ -113,7 +113,7 @@ begin
     //Если не найден выше...
     if (Result = 'none') and (U.Params <> '') then
     begin
-      //Stage-2; Остальные параметры: security, type, encryption, path
+      //Stage-2; Остальные параметры: algorithm, issuer, secret, digirs, counter
 
       //Грузим линейный текст
       S.Text := U.Params;
@@ -156,6 +156,7 @@ begin
   end;
 end;
 
+{
 //URLDecode
 function URLDecode(const S: string): string;
 var
@@ -195,6 +196,7 @@ begin
     end;
   end;
 end;
+}
 
 //Валидация загружаемого архива (БД из *.tar.gz)
 function IsBackup(input: string): boolean;
@@ -220,7 +222,7 @@ begin
   end;
 end;
 
-//HEX или Base32
+//HEX или BASE32
 function IsHexOrBase32(const str: string): string;
 var
   i: integer;
@@ -258,7 +260,7 @@ begin
     Result := 'Unknown';
 end;
 
-//StartCommand
+// StartCommand
 procedure TMainForm.StartProcess(command: string);
 var
   ExProcess: TProcess;
@@ -275,7 +277,7 @@ begin
   end;
 end;
 
-//Рабочий каталог WorkDir
+// Рабочий каталог WorkDir
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
   MainForm.Caption := Application.Title;
