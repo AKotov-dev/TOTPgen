@@ -2,7 +2,7 @@
 name=totpgen
 
 [VERSION]
-version=0.6
+version=0.7
 
 [RELEASE]
 release=0.mrx9
@@ -63,32 +63,36 @@ devtool=Lazarus
 toolversion=3.8
 
 [INFO]
-0=v0.6
-1=+ `Issuer` field added
-2=+ Improved key format detection
-3=+ Display QR code for smartphone
-4=+ Dependencies: `qrencode` added
-5=+ RPM packages for Mageia-9
-6=
-7=v0.5
-8=+ Recompilation in Lazarus-3.8
-9=+ Fix `BASE32`key decoding
-10=+ RPM packages for Mageia-9
-11=
-12=v0.4
-13=+ Added work with HOTP
+0=v0.7
+1=+ Improved QR code reading from the screen
+2=+ RPM packages for Mageia-9
+3=
+4=v0.6
+5=+ `Issuer` field added
+6=+ Improved key format detection
+7=+ Display QR code for smartphone
+8=+ Dependencies: `qrencode` added
+9=+ RPM packages for Mageia-9
+10=
+11=v0.5
+12=+ Recompilation in Lazarus-3.8
+13=+ Fix `BASE32`key decoding
 14=+ RPM packages for Mageia-9
 15=
-16=v0.3
-17=+ Cosmetic edits
-18=+ Reading Issuer as a name in a list
-19=+ RPM packages for Mageia-9
-20=
-21=v0.2
-22=+ Added dependency zbar (spec)
-23=+ Scan TOTP QR code from the screen
-24=+ RPM packages for Mageia-9
-25=
-26=v0.1
-27=+ Initial release
+16=v0.4
+17=+ Added work with HOTP
+18=+ RPM packages for Mageia-9
+19=
+20=v0.3
+21=+ Cosmetic edits
+22=+ Reading Issuer as a name in a list
+23=+ RPM packages for Mageia-9
+24=
+25=v0.2
+26=+ Added dependency zbar (spec)
+27=+ Scan TOTP QR code from the screen
 28=+ RPM packages for Mageia-9
+29=
+30=v0.1
+31=+ Initial release
+32=+ RPM packages for Mageia-9

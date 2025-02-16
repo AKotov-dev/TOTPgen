@@ -607,9 +607,9 @@ begin
 
     GetQR.Parameters.Clear;
     GetQR.Parameters.Add('-c');
-    GetQR.Parameters.Add('zbarimg ' + WorkDir + 'screen.png > ' +
-      WorkDir + 'code.txt; cat ' + WorkDir +
-      'code.txt | grep QR-Code | cut -c 9-; rm -f ' + WorkDir + '{screen.png,code.txt}');
+    //Забрать и расшифровать QR-код с экрана
+    GetQR.Parameters.Add('zbarimg --quiet --nodbus ' + WorkDir +
+      'screen.png' + ' | cut -c 9-; rm -f ' + WorkDir + 'screen.png');
 
     GetQR.Execute;
 

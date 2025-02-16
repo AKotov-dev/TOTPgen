@@ -172,7 +172,7 @@ begin
   begin
     if (S[I] = '%') and (I + 2 <= Len) then
     begin
-      // Получаем 2 символа после '%', чтобы декодировать их как шестнадцатеричное число
+      //Получаем 2 символа после '%', чтобы декодировать их как шестнадцатеричное число
       HexStr := Copy(S, I + 1, 2);
       try
         // Преобразуем строку в число
@@ -182,7 +182,7 @@ begin
       except
         on E: EConvertError do
         begin
-          // Если не удалось декодировать, просто добавляем '%' как есть
+          //Если не удалось декодировать, просто добавляем '%' как есть
           Result := Result + '%';
           Inc(I);
         end;
@@ -190,7 +190,7 @@ begin
     end
     else
     begin
-      // Просто добавляем обычные символы
+      //Просто добавляем обычные символы
       Result := Result + S[I];
       Inc(I);
     end;
@@ -260,7 +260,7 @@ begin
     Result := 'Unknown';
 end;
 
-// StartCommand - общая процедура запуска команд
+//StartCommand - общая процедура запуска команд (синхронная)
 procedure TMainForm.StartProcess(command: string);
 var
   ExProcess: TProcess;
@@ -277,7 +277,7 @@ begin
   end;
 end;
 
-// Рабочий каталог WorkDir
+//Рабочий каталог WorkDir - глобальная переменная для tar и др.
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
   MainForm.Caption := Application.Title;
@@ -320,6 +320,7 @@ begin
   if ListBox1.Count <> 0 then ListBox1.Click;
 end;
 
+//Получить TOTP
 //Online QR Generator: https://stefansundin.github.io/2fa-qr/
 //Doc: https://www.tenminutetutor.com/data-formats/binary-encoding/base32-encoding/
 //A..Z a..z 2..7  max field length = 40 symbols
@@ -467,6 +468,7 @@ begin
     COUNTER := INI.ReadInteger('TApplication.DataForm', 'HOTPCounter_Value', 0);
     HOTP := INI.ReadInteger('TApplication.DataForm', 'HOTP_Checked', 0);
 
+    //Собираем URL totp/hotp
     if HOTP = 0 then
       QRtxt := Concat('otpauth://totp/', URLEncode(ListBox1.Items[ListBox1.ItemIndex]),
         '?', 'secret=', KEY, '&', 'issuer=', URLEncode(ISSUER), '&',
@@ -477,9 +479,11 @@ begin
         'algorithm=', HASH, '&', 'digits=', IntToStr(DIGITS), '&',
         'counter=', IntToStr(COUNTER));
 
+    //Создаём картинку QR-код
     StartProcess('qrencode "' + QRtxt +
       '" -o ~/.config/totpgen/qr.xpm --margin=2 --type=XPM');
 
+    //Если создана - показываем
     if FileExists(GetUserDir + '.config/totpgen/qr.xpm') then
     begin
       Image1.Picture.LoadFromFile(GetUserDir + '.config/totpgen/qr.xpm');
@@ -603,9 +607,8 @@ begin
 
     GetQR.Parameters.Clear;
     GetQR.Parameters.Add('-c');
-    GetQR.Parameters.Add('zbarimg ' + WorkDir + 'screen.png > ' +
-      WorkDir + 'code.txt; cat ' + WorkDir +
-      'code.txt | grep QR-Code | cut -c 9-; rm -f ' + WorkDir + '{screen.png,code.txt}');
+    GetQR.Parameters.Add('zbarimg --quiet --nodbus ' + WorkDir +
+      'screen.png' + ' | cut -c 9-; rm -f ' + WorkDir + 'screen.png');
 
     GetQR.Execute;
 
