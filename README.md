@@ -2,7 +2,7 @@
 
 A simple one-time password generator using the `TOTP/HOTP` algorithm for two-factor authentication (2FA). The program works both from the `*.tar.gz` archive (with user rights, see Releases) and from the `rpm package` (root, pkexec/kdesu).
 
-**Requires:** oath-toolkit **>= 2.6.7**, polkit, gtk2, qrencode, zbar (`zbarimg` should be in the package)  
+**Requires:** oath-toolkit **>= 2.6.7**, polkit, gtk2, qrencode, zbar, tar, gnupg2  
 **Work directory:** ~/.config/totpgen
 
 **Important:** for the program to work correctly, the time on the local computer must be accurate.
