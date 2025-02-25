@@ -825,12 +825,12 @@ object MainForm: TMainForm
   end
   object OpenDialog1: TOpenDialog
     DefaultExt = '.tar.gz'
-    Filter = 'TOTPgen archive (*.tar.gz)|*.tar.gz'
+    Filter = 'TOTPgen archive (*.tar.gpg)|*.tar.gpg'
     Left = 48
     Top = 176
   end
   object SaveDialog1: TSaveDialog
-    Filter = 'TOTPgen archive (*.tar.gz)|*.tar.gz'
+    Filter = 'TOTPgen archive (*.tar.gpg)|*.tar.gpg'
     Options = [ofOverwritePrompt, ofEnableSizing, ofViewDetail]
     Left = 156
     Top = 180

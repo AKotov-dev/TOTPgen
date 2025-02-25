@@ -70,6 +70,11 @@ resourcestring
   SRecordExists = 'The record already exists!';
   SNoKeyFormat = 'The key format is not defined!';
   SNoBackup = 'The archive does not correspond to TOTPgen!';
+  SLoad = 'Load';
+  SSave = 'Save';
+  SEncryptPassword = 'Enter encryption password:';
+  SDecryptPassword = 'The list will be replaced. Enter decryption password:';
+
 
 var
   MainForm: TMainForm;
@@ -199,7 +204,7 @@ end;
 }
 
 //Валидация загружаемого архива (БД из *.tar.gz)
-function IsBackup(input: string): boolean;
+function IsBackup(input, password: string): boolean;
 var
   S: TStringList;
   ExProcess: TProcess;
@@ -210,7 +215,10 @@ begin
   try
     ExProcess.Executable := 'bash';
     ExProcess.Parameters.Add('-c');
-    ExProcess.Parameters.Add('tar -ztf "' + input + '" | grep "./totp.list"');
+
+    ExProcess.Parameters.Add('gpg --batch --yes --passphrase "' +
+      password + '" --decrypt "' + input + '" | tar -tf - ' + '| grep "./totp.list"');
+
     ExProcess.Options := [poWaitOnExit, poUsePipes];
     ExProcess.Execute;
     S.LoadFromStream(ExProcess.Output);
@@ -537,29 +545,48 @@ end;
 //Сохранить
 procedure TMainForm.SaveBtnClick(Sender: TObject);
 var
-  ext: string;
+  password, ext: string;
 begin
-  ext := '';
+  //Если список пуст - Выйти
+  if ListBox1.Count = 0 then Exit;
 
+  ext := '';
+  password := '';
+
+  // Продолжаем спрашивать пароль
+  repeat
+    if not InputQuery(SSave, SEncryptPassword, password) then Exit;
+  until password <> '';
+
+  // Шифруем и сохраняем
   if SaveDialog1.Execute then
   begin
     Application.ProcessMessages;
 
-    if ExtractFileExt(SaveDialog1.FileName) = '' then ext := '.tar.gz';
+    if ExtractFileExt(SaveDialog1.FileName) = '' then ext := '.tar.gpg';
 
-    StartProcess('cd ' + WorkDir + '; tar czf "' + SaveDialog1.FileName +
-      ext + '" ./*');
+    StartProcess('cd ' + WorkDir + '; tar -cf - . | gpg --batch --yes --passphrase "' +
+      password + '" -c -o "' + SaveDialog1.FileName + ext + '"');
   end;
 end;
 
 //Загрузить
 procedure TMainForm.LoadBtnClick(Sender: TObject);
+var
+  password: string;
 begin
+  password := '';
+
+  // Продолжаем спрашивать пароль
+  repeat
+    if not InputQuery(SLoad, SDecryptPassword, password) then Exit;
+  until password <> '';
+
   if OpenDialog1.Execute then
   begin
     //Проверка валидности загружаемого архива *.tar.gz
     Application.ProcessMessages;
-    if not IsBackup(OpenDialog1.FileName) then
+    if not IsBackup(OpenDialog1.FileName, password) then
     begin
       MessageDlg(SNoBackup, mtWarning, [mbOK], 0);
       Exit;
@@ -567,8 +594,9 @@ begin
 
     Application.ProcessMessages;
 
-    StartProcess('cd ' + WorkDir + '; rm -f ./*; tar xzf "' +
-      OpenDialog1.FileName + '"');
+    //Расшифровка и распаковка
+    StartProcess('cd ' + WorkDir + '; rm -f ./*; gpg --batch --yes --passphrase "' +
+      password + '" -d "' + OpenDialog1.FileName + '" | tar -xf -');
 
     if FileExists(WorkDir + 'totp.list') then
       ListBox1.Items.LoadFromFile(WorkDir + 'totp.list');

@@ -95,6 +95,7 @@ msgid "Get the code (TOTP/HOTP)"
 msgstr ""
 
 #: tmainform.loadbtn.hint
+msgctxt "tmainform.loadbtn.hint"
 msgid "Load"
 msgstr ""
 
@@ -103,6 +104,7 @@ msgid "Scan QR from screen"
 msgstr ""
 
 #: tmainform.savebtn.hint
+msgctxt "tmainform.savebtn.hint"
 msgid "Save"
 msgstr ""
 
@@ -136,12 +138,25 @@ msgstr ""
 msgid "The program is already running!"
 msgstr ""
 
+#: unit1.sdecryptpassword
+msgid "The list will be replaced. Enter decryption password:"
+msgstr ""
+
 #: unit1.sdeleteconfiguration
 msgid "Remove selected from list?"
 msgstr ""
 
 #: unit1.seditrecord
 msgid "Editing entry"
+msgstr ""
+
+#: unit1.sencryptpassword
+msgid "Enter encryption password:"
+msgstr ""
+
+#: unit1.sload
+msgctxt "unit1.sload"
+msgid "Load"
 msgstr ""
 
 #: unit1.snobackup
@@ -154,5 +169,10 @@ msgstr ""
 
 #: unit1.srecordexists
 msgid "The record already exists!"
+msgstr ""
+
+#: unit1.ssave
+msgctxt "unit1.ssave"
+msgid "Save"
 msgstr ""
 

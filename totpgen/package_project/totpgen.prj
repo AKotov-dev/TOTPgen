@@ -2,7 +2,7 @@
 name=totpgen
 
 [VERSION]
-version=0.7
+version=0.8
 
 [RELEASE]
 release=0.mrx9
@@ -31,7 +31,7 @@ urlcopy=https://github.com/AKotov-dev/TOTPgen
 license=GPLv3
 
 [DEPS]
-deps=gtk2 polkit oath-toolkit zbar qrencode
+deps=gtk2 polkit oath-toolkit zbar qrencode gnupg2 tar
 
 [META]
 meta=0
@@ -63,36 +63,42 @@ devtool=Lazarus
 toolversion=3.8
 
 [INFO]
-0=v0.7
-1=+ Improved QR code reading from the screen
-2=+ RPM packages for Mageia-9
+0=v0.8
+1=+ GPG Encryption/Decryption when Saving/Loading list data
+2=+ RPM packages for Mageia-9 + AppImage
 3=
-4=v0.6
-5=+ `Issuer` field added
-6=+ Improved key format detection
-7=+ Display QR code for smartphone
-8=+ Dependencies: `qrencode` added
-9=+ RPM packages for Mageia-9
-10=
-11=v0.5
-12=+ Recompilation in Lazarus-3.8
-13=+ Fix `BASE32`key decoding
-14=+ RPM packages for Mageia-9
-15=
-16=v0.4
-17=+ Added work with HOTP
-18=+ RPM packages for Mageia-9
-19=
-20=v0.3
-21=+ Cosmetic edits
-22=+ Reading Issuer as a name in a list
-23=+ RPM packages for Mageia-9
-24=
-25=v0.2
-26=+ Added dependency zbar (spec)
-27=+ Scan TOTP QR code from the screen
-28=+ RPM packages for Mageia-9
-29=
-30=v0.1
-31=+ Initial release
-32=+ RPM packages for Mageia-9
+4=**Note:**  When Saving/Loading data, symmetric `GPG encryption` with a `password` is used. Now you can upload the encrypted list, for example, to the cloud or save it to an external drive and not worry that it will be read by someone, since the `decryption password` is known only to you.
+5=
+6=v0.7
+7=+ Improved QR code reading from the screen
+8=+ RPM packages for Mageia-9
+9=
+10=v0.6
+11=+ `Issuer` field added
+12=+ Improved key format detection
+13=+ Display QR code for smartphone
+14=+ Dependencies: `qrencode` added
+15=+ RPM packages for Mageia-9
+16=
+17=v0.5
+18=+ Recompilation in Lazarus-3.8
+19=+ Fix `BASE32`key decoding
+20=+ RPM packages for Mageia-9
+21=
+22=v0.4
+23=+ Added work with HOTP
+24=+ RPM packages for Mageia-9
+25=
+26=v0.3
+27=+ Cosmetic edits
+28=+ Reading Issuer as a name in a list
+29=+ RPM packages for Mageia-9
+30=
+31=v0.2
+32=+ Added dependency zbar (spec)
+33=+ Scan TOTP QR code from the screen
+34=+ RPM packages for Mageia-9
+35=
+36=v0.1
+37=+ Initial release
+38=+ RPM packages for Mageia-9

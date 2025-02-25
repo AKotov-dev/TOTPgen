@@ -5,5 +5,9 @@
 {"hash":48032665,"name":"unit1.seditrecord","sourcebytes":[69,100,105,116,105,110,103,32,101,110,116,114,121],"value":"Editing entry"},
 {"hash":213318209,"name":"unit1.srecordexists","sourcebytes":[84,104,101,32,114,101,99,111,114,100,32,97,108,114,101,97,100,121,32,101,120,105,115,116,115,33],"value":"The record already exists!"},
 {"hash":103324721,"name":"unit1.snokeyformat","sourcebytes":[84,104,101,32,107,101,121,32,102,111,114,109,97,116,32,105,115,32,110,111,116,32,100,101,102,105,110,101,100,33],"value":"The key format is not defined!"},
-{"hash":101247073,"name":"unit1.snobackup","sourcebytes":[84,104,101,32,97,114,99,104,105,118,101,32,100,111,101,115,32,110,111,116,32,99,111,114,114,101,115,112,111,110,100,32,116,111,32,84,79,84,80,103,101,110,33],"value":"The archive does not correspond to TOTPgen!"}
+{"hash":101247073,"name":"unit1.snobackup","sourcebytes":[84,104,101,32,97,114,99,104,105,118,101,32,100,111,101,115,32,110,111,116,32,99,111,114,114,101,115,112,111,110,100,32,116,111,32,84,79,84,80,103,101,110,33],"value":"The archive does not correspond to TOTPgen!"},
+{"hash":341364,"name":"unit1.sload","sourcebytes":[76,111,97,100],"value":"Load"},
+{"hash":366789,"name":"unit1.ssave","sourcebytes":[83,97,118,101],"value":"Save"},
+{"hash":97278938,"name":"unit1.sencryptpassword","sourcebytes":[69,110,116,101,114,32,101,110,99,114,121,112,116,105,111,110,32,112,97,115,115,119,111,114,100,58],"value":"Enter encryption password:"},
+{"hash":160285146,"name":"unit1.sdecryptpassword","sourcebytes":[84,104,101,32,108,105,115,116,32,119,105,108,108,32,98,101,32,114,101,112,108,97,99,101,100,46,32,69,110,116,101,114,32,100,101,99,114,121,112,116,105,111,110,32,112,97,115,115,119,111,114,100,58],"value":"The list will be replaced. Enter decryption password:"}
 ]}

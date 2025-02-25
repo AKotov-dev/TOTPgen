@@ -106,6 +106,7 @@ msgid "Get the code (TOTP/HOTP)"
 msgstr "Получить код (TOTP/HOTP)"
 
 #: tmainform.loadbtn.hint
+msgctxt "tmainform.loadbtn.hint"
 msgid "Load"
 msgstr "Загрузить"
 
@@ -114,6 +115,7 @@ msgid "Scan QR from screen"
 msgstr "Сканировать QR с экрана"
 
 #: tmainform.savebtn.hint
+msgctxt "tmainform.savebtn.hint"
 msgid "Save"
 msgstr "Сохранить"
 
@@ -147,6 +149,10 @@ msgstr "Добавить запись"
 msgid "The program is already running!"
 msgstr "Программа уже запущена!"
 
+#: unit1.sdecryptpassword
+msgid "The list will be replaced. Enter decryption password:"
+msgstr "Список будет замещен. Введите пароль расшифровки:"
+
 #: unit1.sdeleteconfiguration
 msgid "Remove selected from list?"
 msgstr "Удалить выбранное из списка?"
@@ -154,6 +160,15 @@ msgstr "Удалить выбранное из списка?"
 #: unit1.seditrecord
 msgid "Editing entry"
 msgstr "Редактировать запись"
+
+#: unit1.sencryptpassword
+msgid "Enter encryption password:"
+msgstr "Введите пароль шифрования:"
+
+#: unit1.sload
+msgctxt "unit1.sload"
+msgid "Load"
+msgstr "Загрузить"
 
 #: unit1.snobackup
 msgid "The archive does not correspond to TOTPgen!"
@@ -166,3 +181,8 @@ msgstr "Формат ключа не определён!"
 #: unit1.srecordexists
 msgid "The record already exists!"
 msgstr "Запись уже существует!"
+
+#: unit1.ssave
+msgctxt "unit1.ssave"
+msgid "Save"
+msgstr "Сохранить"
