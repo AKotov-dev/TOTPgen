@@ -3,7 +3,7 @@
 A simple one-time password generator using the `TOTP/HOTP` algorithms for two-factor authentication (2FA).  
   
 **Requires (RPM):** oath-toolkit **>= 2.6.7**, polkit, gtk2, qrencode, zbar, tar, gnupg2  
-**Requires (DEB):** libgtk2.0-0 oathtool gnupg2 tar qrencode zbar-tools  
+**Requires (DEB):** libgtk2.0-0, oathtool **>= 2.6.7**, gnupg2, tar, qrencode, zbar-tools  
 **Work directory:** ~/.config/totpgen
 
 > [!IMPORTANT]
