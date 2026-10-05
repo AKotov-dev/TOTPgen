@@ -8,7 +8,7 @@ A simple one-time password generator using the `TOTP/HOTP` algorithms for two-fa
 
 > [!NOTE]
 > **If you store sensitive credentials, use full-disk encryption such as LUKS.**  
-> **For the program to work correctly, the time on the local computer must be accurate.**
+> **The local computer's clock must be accurate for the program to work correctly.**
 
 After launch, create an entry by clicking the `+` button. Enter the Record `Name`, the secret `Key` that was issued to you on the site and click the `Apply` button. Now click the `TOTP` button and receive a password to enter into the site; it will be copied to the clipboard. Depending on your requirements, you can double-click on the entry (or press `F4` on your keyboard, see tooltips) and change the parameters.  
   
