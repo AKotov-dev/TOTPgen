@@ -111,10 +111,8 @@ msgid "Load"
 msgstr "Загрузить"
 
 #: tmainform.qrbtn.hint
-#, fuzzy
-#| msgid "Scan QR from screen"
 msgid "Scan QR from screen (X11)"
-msgstr "Сканировать QR с экрана"
+msgstr "Сканировать QR с экрана (X11)"
 
 #: tmainform.savebtn.hint
 msgctxt "tmainform.savebtn.hint"
@@ -188,4 +186,3 @@ msgstr "Запись уже существует!"
 msgctxt "unit1.ssave"
 msgid "Encrypt and Save"
 msgstr "Зашифровать и Сохранить"
-
