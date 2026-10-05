@@ -1,18 +1,18 @@
 object MainForm: TMainForm
-  Left = 300
+  Left = 364
   Height = 633
-  Top = 127
+  Top = 122
   Width = 441
   ActiveControl = GETBtn
   Caption = 'TOTPgen'
   ClientHeight = 633
   ClientWidth = 441
   KeyPreview = True
+  SessionProperties = 'Height;Left;Top;Width;OpenDialog1.InitialDir;SaveDialog1.InitialDir'
+  LCLVersion = '4.4.0.0'
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
   OnShow = FormShow
-  SessionProperties = 'Height;Left;Top;Width;OpenDialog1.InitialDir;SaveDialog1.InitialDir'
-  LCLVersion = '3.8.0.0'
   object LoadBtn: TSpeedButton
     Left = 8
     Height = 40
@@ -95,9 +95,9 @@ object MainForm: TMainForm
       E1B8009EE0320000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000
     }
-    OnClick = LoadBtnClick
     ShowHint = True
     ParentShowHint = False
+    OnClick = LoadBtnClick
   end
   object SaveBtn: TSpeedButton
     Left = 48
@@ -181,9 +181,9 @@ object MainForm: TMainForm
       1E44CE801E44CE801E44CE801E44CE801E44CE801E44CE801E44CE801E44CE80
       1E44CE801E44CE811E43C68E1C09000000000000000000000000
     }
-    OnClick = SaveBtnClick
     ShowHint = True
     ParentShowHint = False
+    OnClick = SaveBtnClick
   end
   object SortBtn: TSpeedButton
     Left = 88
@@ -267,9 +267,9 @@ object MainForm: TMainForm
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000
     }
-    OnClick = SortBtnClick
     ShowHint = True
     ParentShowHint = False
+    OnClick = SortBtnClick
   end
   object SelectAll: TSpeedButton
     Left = 142
@@ -353,9 +353,9 @@ object MainForm: TMainForm
       03B8FFB804D8FFB803F4FFB803F4FFB804D8FFB803B8FFB8026CFFB9001D0000
       0000000000000000000000000000000000000000000000000000
     }
-    OnClick = SelectAllClick
     ShowHint = True
     ParentShowHint = False
+    OnClick = SelectAllClick
   end
   object EditBtn: TSpeedButton
     Left = 182
@@ -439,9 +439,9 @@ object MainForm: TMainForm
       00B894AB00D894AB00F494AB00F494AB00D894AA00B895AA006C95A7001D0000
       0000000000000000000000000000000000000000000000000000
     }
-    OnClick = EditBtnClick
     ShowHint = True
     ParentShowHint = False
+    OnClick = EditBtnClick
   end
   object DeleteBtn: TSpeedButton
     Left = 222
@@ -525,9 +525,9 @@ object MainForm: TMainForm
       E17F5F4FDFB25F4FE0E65F4FE0E65F4FDFB25E4EE17F5F4EE04B5D51DC16FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
-    OnClick = DeleteBtnClick
     ShowHint = True
     ParentShowHint = False
+    OnClick = DeleteBtnClick
   end
   object AddBtn: TSpeedButton
     Left = 262
@@ -611,9 +611,9 @@ object MainForm: TMainForm
       4BB74FAE4BD74FAD4BF44FAD4BF44FAE4BD74EAE4CB64FAE4A6B52AD491C0000
       0000000000000000000000000000000000000000000000000000
     }
-    OnClick = AddBtnClick
     ShowHint = True
     ParentShowHint = False
+    OnClick = AddBtnClick
   end
   object ListBox1: TListBox
     AnchorSideTop.Control = LoadBtn
@@ -656,11 +656,11 @@ object MainForm: TMainForm
     Font.Height = -13
     Font.Name = 'Sans'
     Font.Style = [fsBold]
-    OnClick = GETBtnClick
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
+    OnClick = GETBtnClick
   end
   object StaticText1: TStaticText
     Left = 0
@@ -668,7 +668,7 @@ object MainForm: TMainForm
     Top = 613
     Width = 441
     Align = alBottom
-    Caption = 'License: GPLv3   Author: alex_q_2000 (C) 2024'
+    Caption = 'License: GPLv3   Author: alex_q_2000 (C) 2026'
     Font.Color = clGray
     Font.Height = -11
     Font.Name = 'Sans'
@@ -758,9 +758,9 @@ object MainForm: TMainForm
       37B8F19D37D8F19D37F4F19D37F4F19D37D8F19D37B8F19C366CED9E351D0000
       0000000000000000000000000000000000000000000000000000
     }
-    OnClick = QRBtnClick
     ShowHint = True
     ParentShowHint = False
+    OnClick = QRBtnClick
   end
   object Image1: TImage
     AnchorSideLeft.Control = Owner

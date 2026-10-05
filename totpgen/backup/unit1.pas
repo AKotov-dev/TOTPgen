@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Buttons, StdCtrls,
   IniPropStorage, DefaultTranslator, LCLTranslator, LCLType, ClipBrd,
   AsyncProcess, Types, FileUtil, Process, IniFiles, LCLIntf, ExtCtrls,
-  URIParser;
+  URIParser, StrUtils;
 
 type
 
@@ -87,6 +87,14 @@ uses totp_unit, data_unit;
   {$R *.lfm}
 
   { TMainForm }
+
+
+function EscapeParamForBash(const S: string): string;
+begin
+  // Заменяем каждую одиночную кавычку ' на последовательность '\'',
+  // которая закрывает строку, вставляет экранированную кавычку и открывает строку заново.
+  Result := '''' + StringReplace(S, '''', '''\''''', [rfReplaceAll]) + '''';
+end;
 
 //Парсер URL otpauth://totp/...
 //URL - Декодирование/Нормализация/Поиск
@@ -206,26 +214,36 @@ end;
 //Валидация загружаемого архива (БД из *.tar.gz)
 function IsBackup(input, password: string): boolean;
 var
-  S: TStringList;
   ExProcess: TProcess;
+  EscapedPass, EscapedFile: string;
 begin
-  Result := True;
-  S := TStringList.Create;
+  Result := False;
+  // По умолчанию считаем, что валидация не прошла
   ExProcess := TProcess.Create(nil);
   try
     ExProcess.Executable := 'bash';
     ExProcess.Parameters.Add('-c');
 
-    ExProcess.Parameters.Add('gpg --batch --yes --passphrase "' +
-      password + '" --decrypt "' + input + '" | tar -tf - ' + '| grep "./totp.list"');
+    // Очищаем параметры через нашу функцию (без двойных кавычек вокруг!)
+    EscapedPass := EscapeParamForBash(password);
+    EscapedFile := EscapeParamForBash(input);
 
-    ExProcess.Options := [poWaitOnExit, poUsePipes];
+    // Безопасная команда. В конце проверяем код возврата всей цепочки через ${PIPESTATUS[2]}
+    // PIPESTATUS[0] - gpg, PIPESTATUS[1] - tar, PIPESTATUS[2] - grep
+    ExProcess.Parameters.Add('gpg --batch --yes --passphrase ' +
+      EscapedPass + ' --decrypt ' + EscapedFile +
+      ' 2>/dev/null | tar -tf - 2>/dev/null | grep -q "./totp.list"; exit ${PIPESTATUS[2]}');
+
+    // Убираем poUsePipes, так как мы больше не читаем поток вывода в Pascal,
+    // а полагаемся на точный код возврата от самого grep/bash.
+    ExProcess.Options := [poWaitOnExit];
     ExProcess.Execute;
-    S.LoadFromStream(ExProcess.Output);
 
-    if S.Count = 0 then Result := False;
+    // Если grep нашёл файл, код выхода (ExitStatus) всей цепочки команд будет равен 0
+    if ExProcess.ExitStatus = 0 then
+      Result := True;
+
   finally
-    S.Free;
     ExProcess.Free;
   end;
 end;
@@ -545,28 +563,36 @@ end;
 //Сохранить
 procedure TMainForm.SaveBtnClick(Sender: TObject);
 var
-  password, ext: string;
+  password: string;
+  FullFileName: string;
 begin
   //Если список пуст - Выйти
-  if ListBox1.SelCount = 0 then Exit;
+  if ListBox1.Count = 0 then Exit;
 
-  ext := '';
   password := '';
-
-  // Продолжаем спрашивать пароль
   repeat
     if not InputQuery(SSave, SEncryptPassword, password) then Exit;
   until password <> '';
 
-  // Шифруем и сохраняем
+  SaveDialog1.DefaultExt := '.tar.gpg';
+  SaveDialog1.FileName := 'totpgen-' + FormatDateTime('dd-mm-yyyy-hh-nn-ss', Now);
+
   if SaveDialog1.Execute then
   begin
     Application.ProcessMessages;
 
-    if ExtractFileExt(SaveDialog1.FileName) = '' then ext := '.tar.gpg';
+    FullFileName := SaveDialog1.FileName;
+    if not EndsText('.tar.gpg', FullFileName) then
+    begin
+      if EndsText('.gpg', FullFileName) then
+        FullFileName := ChangeFileExt(FullFileName, '.tar.gpg')
+      else
+        FullFileName := FullFileName + '.tar.gpg';
+    end;
 
-    StartProcess('cd ' + WorkDir + '; tar -cf - . | gpg --batch --yes --passphrase "' +
-      password + '" -c -o "' + SaveDialog1.FileName + ext + '"');
+    // Собираем команду, безопасно экранируя и пароль, и имя файла под правила bash
+    StartProcess('cd ~/.config/totpgen && tar -cf - . | gpg --cipher-algo AES256 --batch --yes --passphrase '
+      + EscapeParamForBash(password) + ' -c -o ' + EscapeParamForBash(FullFileName));
   end;
 end;
 
@@ -574,6 +600,7 @@ end;
 procedure TMainForm.LoadBtnClick(Sender: TObject);
 var
   password: string;
+  EscapedPass, EscapedFile: string;
 begin
   password := '';
 
@@ -584,7 +611,7 @@ begin
 
   if OpenDialog1.Execute then
   begin
-    //Проверка валидности загружаемого архива *.tar.gz
+    // Проверка валидности загружаемого архива
     Application.ProcessMessages;
     if not IsBackup(OpenDialog1.FileName, password) then
     begin
@@ -594,9 +621,14 @@ begin
 
     Application.ProcessMessages;
 
-    //Расшифровка и распаковка
-    StartProcess('cd ' + WorkDir + '; rm -f ./*; gpg --batch --yes --passphrase "' +
-      password + '" -d "' + OpenDialog1.FileName + '" | tar -xf -');
+    // Готовим безопасные параметры для bash (без двойных кавычек!)
+    EscapedPass := EscapeParamForBash(password);
+    EscapedFile := EscapeParamForBash(OpenDialog1.FileName);
+
+    // Расшифровка и распаковка
+    // Заменили ";" на "&&", чтобы rm -rf выполнялся строго после успешного перехода в папку
+    StartProcess('cd ~/.config/totpgen/ && rm -rf ./* && gpg --batch --yes --passphrase '
+      + EscapedPass + ' -d ' + EscapedFile + ' | tar -xf -');
 
     if FileExists(WorkDir + 'totp.list') then
       ListBox1.Items.LoadFromFile(WorkDir + 'totp.list');

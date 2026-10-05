@@ -117,7 +117,7 @@ msgid "Sort List"
 msgstr ""
 
 #: tmainform.statictext1.caption
-msgid "License: GPLv3   Author: alex_q_2000 (C) 2024"
+msgid "License: GPLv3   Author: alex_q_2000 (C) 2026"
 msgstr ""
 
 #: ttotpform.caption
