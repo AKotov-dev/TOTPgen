@@ -1,11 +1,11 @@
 object MainForm: TMainForm
-  Left = 364
-  Height = 633
-  Top = 122
+  Left = 327
+  Height = 562
+  Top = 130
   Width = 441
   ActiveControl = GETBtn
   Caption = 'TOTPgen'
-  ClientHeight = 633
+  ClientHeight = 562
   ClientWidth = 441
   KeyPreview = True
   SessionProperties = 'Height;Left;Top;Width;OpenDialog1.InitialDir;SaveDialog1.InitialDir'
@@ -622,7 +622,7 @@ object MainForm: TMainForm
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = Image1
     Left = 8
-    Height = 390
+    Height = 319
     Top = 55
     Width = 425
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -665,7 +665,7 @@ object MainForm: TMainForm
   object StaticText1: TStaticText
     Left = 0
     Height = 20
-    Top = 613
+    Top = 542
     Width = 441
     Align = alBottom
     Caption = 'License: GPLv3   Author: alex_q_2000 (C) 2026'
@@ -768,7 +768,7 @@ object MainForm: TMainForm
     AnchorSideBottom.Control = StaticText1
     Left = 140
     Height = 160
-    Top = 449
+    Top = 378
     Width = 160
     Anchors = [akLeft, akBottom]
     BorderSpacing.Bottom = 4
