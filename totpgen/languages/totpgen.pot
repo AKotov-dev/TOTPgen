@@ -100,7 +100,7 @@ msgid "Load"
 msgstr ""
 
 #: tmainform.qrbtn.hint
-msgid "Scan QR from screen"
+msgid "Scan QR from screen (X11)"
 msgstr ""
 
 #: tmainform.savebtn.hint
@@ -156,7 +156,7 @@ msgstr ""
 
 #: unit1.sload
 msgctxt "unit1.sload"
-msgid "Load"
+msgid "Decrypt and Load"
 msgstr ""
 
 #: unit1.snobackup
@@ -173,6 +173,6 @@ msgstr ""
 
 #: unit1.ssave
 msgctxt "unit1.ssave"
-msgid "Save"
+msgid "Encrypt and Save"
 msgstr ""
 

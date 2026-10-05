@@ -678,7 +678,7 @@ object MainForm: TMainForm
   object QRBtn: TSpeedButton
     Left = 302
     Height = 40
-    Hint = 'Scan QR from screen'
+    Hint = 'Scan QR from screen (X11)'
     Top = 7
     Width = 40
     BorderSpacing.Right = 4

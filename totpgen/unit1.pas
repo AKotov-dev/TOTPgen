@@ -70,8 +70,8 @@ resourcestring
   SRecordExists = 'The record already exists!';
   SNoKeyFormat = 'The key format is not defined!';
   SNoBackup = 'The archive does not correspond to TOTPgen!';
-  SLoad = 'Load';
-  SSave = 'Save';
+  SLoad = 'Decrypt and Load';
+  SSave = 'Encrypt and Save';
   SEncryptPassword = 'Enter encryption password:';
   SDecryptPassword = 'The list will be replaced. Enter decryption password:';
 
