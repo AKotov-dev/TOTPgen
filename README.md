@@ -6,7 +6,7 @@ A simple one-time password generator using the `TOTP/HOTP` algorithms for two-fa
 **Requires (DEB):** libgtk2.0-0 oathtool gnupg2 tar qrencode zbar-tools  
 **Work directory:** ~/.config/totpgen
 
-> [!IMPORTANT]
+> [!NOTE]
 > **If you store sensitive credentials, use full-disk encryption such as LUKS.**  
 > **For the program to work correctly, the time on the local computer must be accurate.**
 
